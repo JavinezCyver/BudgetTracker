@@ -19,9 +19,10 @@ jobs:
     permissions:
       contents: write
     env:
-      POCKETPLAN_ANDROID_KEYSTORE: ${{ runner.temp }}/pocketplan-release.jks
       POCKETPLAN_ANDROID_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
     steps:
+      - name: Set temporary signing key path
+        run: echo "POCKETPLAN_ANDROID_KEYSTORE=$RUNNER_TEMP/pocketplan-release.jks" >> "$GITHUB_ENV"
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
