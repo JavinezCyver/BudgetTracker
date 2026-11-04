@@ -1,4 +1,4 @@
-name: Release PocketPlan for Windows
+name: Release PocketPlan for Android
 
 on:
   push:
@@ -9,18 +9,18 @@ permissions:
   contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: android-release-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   release:
-    runs-on: windows-latest
-    timeout-minutes: 45
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: write
-    defaults:
-      run:
-        shell: pwsh
+    env:
+      POCKETPLAN_ANDROID_KEYSTORE: ${{ runner.temp }}/pocketplan-release.jks
+      POCKETPLAN_ANDROID_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -29,35 +29,51 @@ jobs:
         with:
           node-version: 24
           package-manager-cache: false
-      - name: Validate release version
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Validate version and restore signing key
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
-          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
-          if ($version -notmatch '^\d+\.\d+\.\d+$') { throw 'Invalid release version.' }
-          $tag = "v$version"
-          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne $tag) { throw 'Git tag must match the application version.' }
-          "RELEASE_TAG=$tag" >> $env:GITHUB_ENV
-      - name: Install dependencies and Rust
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
+          if (!/^\d+\.\d+\.\d+$/.test(version)) throw new Error('Invalid release version.');
+          const tag = `v${version}`;
+          if (process.env.GITHUB_REF_TYPE === 'tag' && process.env.GITHUB_REF_NAME !== tag) throw new Error('Tag must match application version.');
+          if (!process.env.ANDROID_KEYSTORE_BASE64 || !process.env.POCKETPLAN_ANDROID_PASSWORD) throw new Error('Add ANDROID_KEYSTORE_BASE64 and ANDROID_KEYSTORE_PASSWORD repository secrets before releasing.');
+          fs.writeFileSync(process.env.POCKETPLAN_ANDROID_KEYSTORE, Buffer.from(process.env.ANDROID_KEYSTORE_BASE64, 'base64'), {mode: 0o600});
+          fs.appendFileSync(process.env.GITHUB_ENV, `RELEASE_TAG=${tag}\n`);
+          NODE
+      - name: Install build tools
         run: |
           npm ci
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           rustup update stable --no-self-update
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           rustup default stable
+          rustup target add aarch64-linux-android
+          sdkmanager 'platforms;android-36' 'build-tools;36.0.0' 'ndk;28.2.13676358'
+          echo "NDK_HOME=$ANDROID_HOME/ndk/28.2.13676358" >> "$GITHUB_ENV"
       - name: Test financial engines and adapters
         run: |
           cargo test --manifest-path crates/pocketplan-core/Cargo.toml --locked
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo build --manifest-path crates/pocketplan-core/Cargo.toml --locked
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --test scripts/*.test.mjs
-      - name: Build Windows application
-        run: npm run tauri -- build --no-bundle --ci -- --locked
-      - name: Package application and checksum
-        run: ./scripts/package-release.ps1
-      - name: Publish GitHub release
+      - name: Initialize Android project
+        run: |
+          npm run tauri -- android init --ci --skip-targets-install
+          node scripts/prepare-android.mjs
+      - name: Build signed Android APK
+        run: npm run tauri -- android build --ci --apk --target aarch64 -- --locked
+      - name: Verify signature and package APK
+        run: node scripts/package-android.mjs
+      - name: Publish Android release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          $assets = Get-ChildItem artifacts -File | ForEach-Object FullName
-          gh release create $env:RELEASE_TAG @assets --target $env:GITHUB_SHA --title "PocketPlan $env:RELEASE_TAG" --notes-file .github/RELEASE_NOTES.md
+          gh release create "$RELEASE_TAG" artifacts/*.apk artifacts/SHA256SUMS-android.txt --target "$GITHUB_SHA" --title "PocketPlan $RELEASE_TAG for Android" --notes-file .github/RELEASE_NOTES.md
+      - name: Remove temporary signing key
+        if: always()
+        run: rm -f -- "$POCKETPLAN_ANDROID_KEYSTORE"

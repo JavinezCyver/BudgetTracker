@@ -10,3 +10,8 @@ artifacts/
 .env
 .env.*
 !.env.example
+.android-build/
+.android-signing/
+*.jks
+*.keystore
+**/keystore.properties

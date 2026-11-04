@@ -3,16 +3,16 @@ PocketPlan is an offline personal finance application for tracking your money in
 - Wallet cards with balances updated by recorded income and expenses.
 - Transaction history, income tracking, and a financial calendar using Philippine dates.
 - Lending and repayments, savings goals, investments, and monthly budget plans.
-- Rust financial calculations, validation, and local storage in the desktop application.
+- Rust financial calculations, validation, and local storage in the native application.
 - Responsive layouts, dark and light modes, color themes, and the coin photo logo.
 - Fixed browser previews incorrectly trying to load desktop-only storage.
 
 ### Download
 
-Download **PocketPlan-0.1.0-windows-x64.exe** and open it. This is a portable Windows 10/11 x64 application; an installer is not required. Microsoft Edge WebView2 Runtime must be installed. No Node.js, Rust, or development server is needed to run it.
+Download **PocketPlan-0.1.1-android-arm64.apk** on your Android phone and open it. Enable installation from this source if Android asks. The app supports Android 7.0 and later on ARM64 devices. No development server or internet connection is needed for normal use after installation.
 
-The application is unsigned, so Windows may show an unknown-publisher warning. SHA-256 checksums are supplied in `SHA256SUMS.txt`.
+The APK is signed with PocketPlan's release key. SHA-256 checksums are supplied in `SHA256SUMS-android.txt`. This is a direct APK download, not a Google Play Store listing.
 
 ### Your data
 
-Financial data stays on the device. The desktop app and browser preview use separate storage. There is no cloud sync, bank connection, or automatic updater. Saved JSON is not encrypted. This release does not include an Android APK or iOS build.
+Financial data stays on the device. Android, desktop, and browser installations use separate storage. There is no cloud sync, bank connection, or automatic updater. Saved JSON is not encrypted. Keep the same signed app installed when updating; uninstalling it can remove its local records. This release does not include an iOS build.

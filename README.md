@@ -39,7 +39,7 @@ The native browser checks inject a test IPC bridge to the real Rust executable; 
 
 ## Native app
 
-For Windows releases, download the x64 `.exe` from the repository's **Releases** page and run it with Microsoft Edge WebView2 Runtime installed. The portable release does not require Node.js or Rust. Mobile binaries are not included.
+The current release workflow targets Android. Earlier Windows portable builds require Microsoft Edge WebView2 Runtime; they do not require Node.js or Rust to run.
 
 Install the Tauri platform prerequisites (Rust, and on Windows the MSVC C++ build tools and WebView2), then:
 
@@ -52,23 +52,43 @@ npm run tauri dev
 Install Android Studio, Android SDK/NDK, Java, and the Rust Android targets required by Tauri. Then initialize the generated platform project:
 
 ```sh
-npm run tauri android init
+npm run tauri -- android init --ci --skip-targets-install
+node scripts/prepare-android.mjs
 npm run tauri android dev
-npm run tauri android build
 ```
 
 For a physical device, set Vite's host to `0.0.0.0` and Tauri's devUrl to your development machine's LAN address. iOS development requires macOS and Xcode; use `npm run tauri ios init` and `npm run tauri ios dev` on a Mac.
 
-Native bundles and mobile platform projects must be generated on a configured development machine. No mobile binary is included. This app stores data on one device and does not connect to a bank or synchronize accounts.
+The generated Android project uses SDK 36, build-tools 36.0.0, NDK 28.2.13676358, Gradle 9.3.1, Android Gradle Plugin 9.1.0, and JDK 21. The release targets ARM64 Android 7.0 or later. The generated platform project is ignored and recreated in CI; `prepare-android.mjs` applies release signing and the coin launcher icons. This app stores data on one device and does not connect to a bank or synchronize accounts.
 
-## Publishing a Windows release
+## Publishing the Android release
 
-The release workflow builds and publishes the portable Windows x64 executable with a SHA-256 checksum. Push a version tag matching `package.json`, or run **Release PocketPlan for Windows** manually from GitHub Actions:
+One-time setup: add these [GitHub repository Actions secrets](https://github.com/JavinezCyver/BudgetTracker/settings/secrets/actions). The signing key was generated locally at the owner's request. Never commit these files or paste them into issues or release notes:
+
+| Repository secret | Value from local file |
+| --- | --- |
+| `ANDROID_KEYSTORE_BASE64` | `.android-signing/keystore-base64.txt` |
+| `ANDROID_KEYSTORE_PASSWORD` | `.android-signing/password.txt` |
+
+Keep a private backup of the entire `.android-signing` folder. The keystore alias is `pocketplan`. Every future update must use the same key; the workflow deliberately fails if signing secrets are missing. The release workflow verifies the APK signature before publishing it with its checksum.
+
+After committing the release changes, push a tag matching the app version, or run **Release PocketPlan for Android** manually from GitHub Actions:
 
 ```sh
 git push origin main
-git tag -a v0.1.0 -m "PocketPlan v0.1.0"
-git push origin v0.1.0
+git tag -a v0.1.1 -m "PocketPlan v0.1.1 for Android"
+git push origin v0.1.1
 ```
 
-For a local release build, run `npm run tauri -- build --no-bundle --ci -- --locked`, then `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-release.ps1`. The output is in the ignored `artifacts` directory. Release notes are in `.github/RELEASE_NOTES.md`. Published builds are unsigned and do not implement automatic updates.
+For a local signed APK, set `ANDROID_HOME`, `NDK_HOME`, and `JAVA_HOME` for the installed SDK/NDK/JDK, then in PowerShell:
+
+```powershell
+$env:POCKETPLAN_ANDROID_KEYSTORE = Join-Path (Get-Location) '.android-signing/pocketplan-release.jks'
+$env:POCKETPLAN_ANDROID_PASSWORD = Get-Content .android-signing/password.txt -Raw
+npm run tauri -- android build --ci --apk --target aarch64 -- --locked
+node scripts/package-android.mjs
+```
+
+The output is `artifacts/PocketPlan-0.1.1-android-arm64.apk` with `SHA256SUMS-android.txt`. These files are created only after a successful build and signature verification. Release notes are in `.github/RELEASE_NOTES.md`. Automatic in-app updates and a Play Store listing are not configured.
+
+Windows builds remain available through `npm run tauri -- build --no-bundle --ci -- --locked` and `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-release.ps1`.
