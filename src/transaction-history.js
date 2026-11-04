@@ -14,14 +14,14 @@ const normalize=value=>String(value||'').normalize('NFKC').toLowerCase();
 
 export function filterTransactions(data,filters,today=manilaNow()){
  const wallets=new Map(data.wallets.map(wallet=>[wallet.id,walletLabel(wallet)]));
- const query=normalize(filters.query).trim(),now=localDate(today),start=new Date(today.getFullYear(),today.getMonth(),today.getDate()-29);
+ const query=normalize(filters.query).trim(),now=localDate(today),start=localDate(new Date(today.getFullYear(),today.getMonth(),today.getDate()-29));
  return data.transactions.filter(transaction=>{
   if(filters.type==='income'&&(transaction.amount<=0||isBalanceTransfer(transaction)))return false;
   if(filters.type==='expense'&&(transaction.amount>=0||isBalanceTransfer(transaction)))return false;
   if(filters.wallet&&filters.wallet!=='all'&&transaction.wallet!==filters.wallet)return false;
   if(filters.category&&filters.category!=='all'&&transaction.category!==filters.category)return false;
   if(filters.range==='month'&&!transaction.date.startsWith(now.slice(0,7)))return false;
-  if(filters.range==='30days'&&(transaction.date<localDate(start)||transaction.date>now))return false;
+  if(filters.range==='30days'&&(transaction.date<start||transaction.date>now))return false;
   return !query||normalize(`${transaction.name} ${transaction.category} ${wallets.get(transaction.wallet)||''}`).includes(query);
  }).sort((a,b)=>filters.sort==='oldest'?-compareTransactions(a,b):filters.sort==='amount'?Math.abs(b.amount)-Math.abs(a.amount)||compareTransactions(a,b):compareTransactions(a,b));
 }

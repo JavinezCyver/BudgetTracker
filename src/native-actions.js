@@ -1,0 +1,22 @@
+// Native-only command descriptors. No financial mutation runs in the webview.
+export const nativeBackend=()=>true;
+const intent=(data,type,fields={},id='')=>({nativeAction:{type,fields,id},revision:data._revision||0});
+export const createWallet=(data,fields)=>intent(data,'create_wallet',fields);
+export const createTransaction=(data,fields)=>intent(data,'create_transaction',fields);
+export const deleteWallet=(data,id)=>intent(data,'delete_wallet',{},id);
+export const createLoan=(data,fields)=>intent(data,'create_loan',fields);
+export const recordRepayment=(data,id,fields)=>intent(data,'repayment',fields,id);
+export const createGoal=(data,fields)=>intent(data,'create_goal',fields);
+export const updateGoal=(data,id,fields)=>intent(data,'update_goal',fields,id);
+export const deleteGoal=(data,id)=>intent(data,'delete_goal',{},id);
+export const contributeToGoal=(data,id,fields)=>intent(data,'contribute_goal',fields,id);
+export const releaseGoalSavings=(data,id,fields)=>intent(data,'release_goal',fields,id);
+export const createInvestment=(data,fields)=>intent(data,'create_investment',fields);
+export const tradeInvestment=(data,id,fields)=>intent(data,'trade_investment',fields,id);
+export const updateInvestmentPrice=(data,id,fields)=>intent(data,'investment_price',fields,id);
+export const saveBudgetPlan=(data,fields)=>intent(data,'save_budget',fields);
+export const deleteBudgetPlan=(data,month)=>intent(data,'delete_budget',{},month);
+export const assignAction=(data,assignments)=>({...intent(data,'assign_transactions'),nativeAction:{type:'assign_transactions',assignments:[...assignments]}});
+export const appearanceAction=(data,id,fields)=>intent(data,'wallet_appearance',fields,id);
+export const preferencesAction=(data,fields)=>intent(data,'preferences',fields);
+export const reorderAction=(data,from,to)=>({...intent(data,'reorder_wallets',{},from),nativeAction:{type:'reorder_wallets',id:from,target:to}});

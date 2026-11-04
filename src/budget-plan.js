@@ -1,3 +1,4 @@
+import {nativeMetric} from './native-metrics.js';
 import {BudgetError,cents,fromCents,validDate,isBalanceTransfer} from './budget.js';
 export const validBudgetMonth=month=>typeof month==='string'&&/^\d{4}-\d{2}$/.test(month)&&validDate(`${month}-01`);
 const key=value=>String(value||'').trim().toLowerCase();
@@ -26,6 +27,7 @@ export function deleteBudgetPlan(data,month){
  return {...data,budgetPlans:data.budgetPlans.filter(plan=>plan.month!==month)};
 }
 export function budgetOverview(data,month){
+ if(nativeMetric(data))return nativeMetric(data).budgets[month]||{plan:null,spent:0,remaining:null,count:0,categories:[]};
  const plan=(data.budgetPlans||[]).find(item=>item.month===month)||null;
  const expenses=data.transactions.filter(transaction=>transaction.date.startsWith(`${month}-`)&&transaction.amount<0&&!isBalanceTransfer(transaction));
  const grouped=new Map();

@@ -1,4 +1,5 @@
-import {BudgetError,deleteWallet} from './budget.js';
+import {deleteWallet} from './record-actions.js';
+import {BudgetError} from './budget.js';
 import {addedWallets} from './wallets.js';
 
 export function bindWalletDeletion({data,render,persist,escape}){

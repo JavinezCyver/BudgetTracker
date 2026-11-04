@@ -1,3 +1,4 @@
+import {appearanceAction} from './record-actions.js';
 import {providers,normalizeProvider} from './card-providers.js';
 export {providers} from './card-providers.js';
 let artwork={};
@@ -34,6 +35,6 @@ export function bindBankOptions({data,persist,render,escape,openTransaction}){
   modal.innerHTML=`<form id="card-options-form"><div class="section-head"><h3>${escape(wallet.name)}</h3><button class="close-button" type="button" id="close-card-options" aria-label="Close">×</button></div><p class="modal-subtitle">Customize your wallet card.</p><label>Card design<select name="provider">${providerOptions(providerFor(wallet))}</select></label><label>Card network<select name="network"><option value="folio">None</option><option value="mastercard" ${wallet.network==='mastercard'?'selected':''}>Mastercard</option><option value="visa" ${wallet.network==='visa'?'selected':''}>Visa</option></select></label><p id="card-error" role="alert"></p><button class="primary-button submit" type="submit">Save appearance</button><button class="card-transaction-button" type="button" id="card-add-transaction">Add transaction</button></form>`;
   modal.showModal();modal.onclick=event=>{if(event.target===modal)modal.close();};document.querySelector('#close-card-options').onclick=()=>modal.close();
   document.querySelector('#card-add-transaction').onclick=()=>{modal.close();openTransaction(wallet.id);};
-  document.querySelector('#card-options-form').onsubmit=async event=>{event.preventDefault();const form=new FormData(event.target),submit=event.target.querySelector('[type=submit]');submit.disabled=true;try{await persist({...data,wallets:data.wallets.map(w=>w.id===wallet.id?{...w,provider:form.get('provider'),network:form.get('network')}:w)});modal.close();render();}catch{submit.disabled=false;document.querySelector('#card-error').textContent='Could not save. Please try again.';}};
+  document.querySelector('#card-options-form').onsubmit=async event=>{event.preventDefault();const form=new FormData(event.target),submit=event.target.querySelector('[type=submit]');submit.disabled=true;try{await persist(appearanceAction(data,wallet.id,{provider:form.get('provider'),network:form.get('network')}));modal.close();render();}catch{submit.disabled=false;document.querySelector('#card-error').textContent='Could not save. Please try again.';}};
  });
 }

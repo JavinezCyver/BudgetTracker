@@ -1,3 +1,4 @@
+import {preferencesAction} from './record-actions.js';
 import {themeTokens} from './theme-tokens.js';
 import {colorParts,themedColor} from './theme-colors.js';
 export const summaryColors=[
@@ -34,7 +35,7 @@ export function bindAppearance({data,persist}){
   const mode=selectedDisplayMode(current)==='dark'?'light':'dark';
   saving=true;const buttons=[...root.querySelectorAll('[data-summary-color],[data-toggle-mode]')],status=root.querySelector('#appearance-status');
   buttons.forEach(item=>item.disabled=true);status.textContent='';
-  try{const next={...current,preferences:{...current.preferences,...(changingMode?{displayMode:mode}:{summaryColor:color.id})}};await persist(next);current=next;applyAppearance(next);root.querySelectorAll('[data-summary-color]').forEach(item=>item.setAttribute('aria-pressed',String(item.dataset.summaryColor===selectedSummaryColor(next).id)));root.querySelector('[data-toggle-mode]').setAttribute('aria-checked',String(selectedDisplayMode(next)==='dark'));root.querySelector('[data-mode-description]').textContent=selectedDisplayMode(next)==='dark'?'Dark mode is on':'Light mode is on';status.textContent=changingMode?`${mode==='dark'?'Dark':'Light'} mode selected`:`${color.name} selected`;}catch{status.textContent='Could not save your appearance. Please try again.';}
+  try{const next=await persist(preferencesAction(current,changingMode?{displayMode:mode}:{summaryColor:color.id}));current=next;applyAppearance(next);root.querySelectorAll('[data-summary-color]').forEach(item=>item.setAttribute('aria-pressed',String(item.dataset.summaryColor===selectedSummaryColor(next).id)));root.querySelector('[data-toggle-mode]').setAttribute('aria-checked',String(selectedDisplayMode(next)==='dark'));root.querySelector('[data-mode-description]').textContent=selectedDisplayMode(next)==='dark'?'Dark mode is on':'Light mode is on';status.textContent=changingMode?`${mode==='dark'?'Dark':'Light'} mode selected`:`${color.name} selected`;}catch{status.textContent='Could not save your appearance. Please try again.';}
   finally{saving=false;buttons.forEach(item=>item.disabled=false);}
  };
 }

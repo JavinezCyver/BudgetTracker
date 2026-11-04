@@ -1,3 +1,4 @@
+import {reorderAction} from './record-actions.js';
 const svg = paths => `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
 const symbols={trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 10v7m4-7v7"/>',filter:'<path d="M3 4h18l-7 8v7l-4 2v-9Z"/>',grid:'<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>',list:'<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/>',stack:'<path d="m3 8 9-5 9 5-9 5Zm0 5 9 5 9-5M3 18l9 5 9-5"/>'};
 let view='grid',filter='all';
@@ -17,7 +18,7 @@ export function bindWalletView({data,render,persist,escape}){
  const cards=[...document.querySelectorAll('.full-wallets .wallet-card')];
  let selected=null;
  let moving=false;
- const move=async(from,to)=>{if(from===to||moving)return;const wallets=[...data.wallets],index=wallets.findIndex(w=>w.id===from),target=wallets.findIndex(w=>w.id===to);if(index<0||target<0)return;moving=true;wallets.splice(target,0,wallets.splice(index,1)[0]);try{await persist({...data,wallets});render();}catch{moving=false;const toast=document.querySelector('#toast');toast.textContent='Could not save wallet order. Please try again.';toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),3000);}};
+ const move=async(from,to)=>{if(from===to||moving)return;const wallets=[...data.wallets],index=wallets.findIndex(w=>w.id===from),target=wallets.findIndex(w=>w.id===to);if(index<0||target<0)return;moving=true;wallets.splice(target,0,wallets.splice(index,1)[0]);try{await persist(reorderAction(data,from,to,wallets));render();}catch{moving=false;const toast=document.querySelector('#toast');toast.textContent='Could not save wallet order. Please try again.';toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),3000);}};
  cards.forEach(card=>{
   const id=card.dataset.walletId;let timer,startX=0,startY=0;
   card.tabIndex=0;card.draggable=true;card.setAttribute('aria-label',`${card.querySelector('p').textContent}. Hold then select another wallet to rearrange, or use Alt and arrow keys.`);

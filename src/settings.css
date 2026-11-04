@@ -4,3 +4,4 @@
 @media(max-width:540px){.settings-updates{padding:15px;border-radius:12px}.settings-heading h1{font-size:18px}.settings-update-status{padding:11px}.settings-release-notes ul{font-size:11px}}
 
 .settings-app-mark{font-size:19px;letter-spacing:-1px}
+.settings-app-mark{object-fit:cover}

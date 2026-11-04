@@ -1,1 +1,1 @@
-{ "identifier": "default", "description": "Folio main window", "windows": ["main"], "permissions": ["core:default"] }
+{ "identifier": "default", "description": "PocketPlan main window", "windows": ["main"], "permissions": ["core:default"] }

@@ -4,6 +4,13 @@
 @media(max-width:760px){.sidebar{width:72px;padding:24px 9px 0}.brand{font-size:0;margin:0 auto 33px;gap:0;letter-spacing:0}.brand-period{display:none}.brand-mark{font-size:31px;width:34px;height:37px}.brand-mark span{font-size:18px}.workspace,.nav-label,.sidebar-note,.profile>div,.profile-dot{display:none}.nav-item{padding:15px;justify-content:center;border-radius:10px;margin-bottom:10px}.nav-item span,.nav-item i{display:none}.nav-item .icon{width:20px;height:20px}.profile{margin-top:auto;justify-content:center;padding:20px 0}.main-shell{margin-left:72px}.topbar{height:64px;padding:0 20px}.topbar-right{gap:0}.local-badge{display:none}.breadcrumb{font-size:10px;gap:12px}main{padding:25px 19px 0}.eyebrow{font-size:7px;letter-spacing:1.3px}h1{font-size:23px;max-width:250px;letter-spacing:-.7px}.page-heading{align-items:flex-start;flex-wrap:wrap;gap:18px}.page-heading p{font-size:10px;line-height:1.6;max-width:270px}.primary-button{font-size:10px;padding:10px 12px}.date-line{margin-top:25px}.stats{gap:10px;grid-template-columns:1fr 1fr}.stat.primary{grid-column:1/-1}.stat.primary h2{font-size:32px}.stat h2{font-size:21px;margin:14px 0}.stat-label{font-size:10px}.stat-label>span{padding:5px;height:27px}.stat p{font-size:8px}.middle-grid{grid-template-columns:1fr;gap:18px}.section-head h3{font-size:12px}.section-head p{font-size:8px;line-height:1.6}.panel{padding:18px 15px}.chart{height:180px}.spending{display:grid;grid-template-columns:1fr 1fr;gap:0 15px;align-items:center}.spending .section-head{grid-column:1/-1}.donut{width:122px;height:122px;margin:23px auto 8px}.donut>div{width:96px;height:96px}.donut strong{font-size:18px}.category-list{gap:14px}.category-list>div,.category-list strong{font-size:8px}.category-list span{gap:5px}.wallet-grid{grid-template-columns:1fr;gap:12px}.wallet-card{padding:19px}.wallet-card h2{font-size:26px}.wallet-card p{margin-top:10px}.wallet-bottom{font-size:9px;margin-top:13px}.wallet-section>.section-head{margin-top:8px}.transactions>.section-head{flex-wrap:wrap;gap:15px}.search{width:100%}.search input{width:100%}.wallet-cell{display:none}th:nth-child(3){display:none}.merchant{gap:7px}.merchant strong{font-size:9px;max-width:105px;display:block}.merchant-icon{width:27px;height:27px}.tag{font-size:7px;padding:4px}.amount{font-size:9px}th.amount{font-size:8px}.table-scroll{overflow-x:auto}td{padding:12px 3px}footer{line-height:1.8;gap:20px;font-size:7px}.calendar-grid{gap:3px}.day{min-height:58px;padding:7px 3px;font-size:10px}.day small{font-size:8px}.desktop-only{display:none}.weekday{font-size:8px;padding:7px 0}.calendar-controls button{padding:6px;font-size:9px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
+::selection{background:transparent;color:inherit}
+html{touch-action:pan-x pan-y}
+html{scrollbar-gutter:auto!important}
+*{scrollbar-width:none!important}
+*::-webkit-scrollbar{display:none}
+input::selection,textarea::selection,[contenteditable]::selection{background:Highlight;color:HighlightText}
+
 /* Compact dark navigation inspired by the supplied reference. */
 .sidebar{width:220px;padding:22px 10px 0;background:#202320;border-right:1px solid #30332e;color:var(--theme-d5d8d1,#d5d8d1)}
 .main-shell{margin-left:220px}
@@ -29,7 +36,7 @@
 .sidebar-collapsed .sidebar{width:72px;padding-left:9px;padding-right:9px}
 .sidebar-collapsed .main-shell{margin-left:72px}
 .sidebar-collapsed .sidebar .brand,.sidebar-collapsed .sidebar-account,.sidebar-collapsed .sidebar .nav-label,.sidebar-collapsed .sidebar .nav-item span,.sidebar-collapsed .sidebar .profile>div,.sidebar-collapsed .sidebar .profile-dot{display:none}
-.sidebar-collapsed .sidebar nav{margin-top:65px}
+.sidebar-collapsed .sidebar nav{margin-top:0}
 .sidebar-collapsed .sidebar-toggle{right:22px}
 .sidebar-collapsed .sidebar .nav-item{justify-content:center;padding:12px 0}
 .sidebar-collapsed .sidebar .profile{justify-content:center;padding:18px 0}

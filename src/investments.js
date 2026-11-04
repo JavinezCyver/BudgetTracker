@@ -1,3 +1,4 @@
+import {nativeMetric} from './native-metrics.js';
 import {BudgetError,cents,fromCents,validDate} from './budget.js';
 import {addedWallets} from './wallets.js';
 import {availableForGoals} from './goal-balances.js';
@@ -63,6 +64,7 @@ export function updateInvestmentPrice(data,id,fields,today=manilaDateKey()){
  return {...data,investments:data.investments.map(item=>item.id===id?{...item,price,priceDate}:item)};
 }
 export function investmentTotals(holdings=[]){
+ if(nativeMetric(holdings))return nativeMetric(holdings).totals;
  let value=0,cost=0,realized=0;for(const holding of holdings){value+=holdingValueCents(holding.units,holding.price);cost+=cents(holding.costBasis);realized+=cents(realizedGain(holding));}
  return {value:fromCents(value),cost:fromCents(cost),unrealized:fromCents(value-cost),realized:fromCents(realized),gain:fromCents(value-cost+realized)};
 }

@@ -33,7 +33,7 @@ async function checkFlows(seed){
  const clean={...seed,wallets:seed.wallets.slice(0,2),transactions:[],loans:[],goals:[],hasAddedWallet:false};
  localStorage.setItem('folio-data',JSON.stringify(clean));frame.src='/';document.body.append(frame);
  let doc;
- const wait=async predicate=>{for(let i=0;i<200;i++){if(predicate())return;await new Promise(resolve=>setTimeout(resolve,10));}throw new Error('Flow check timed out');};
+ const wait=async predicate=>{for(let i=0;i<200;i++){if(predicate()){await new Promise(resolve=>setTimeout(resolve,0));return;}await new Promise(resolve=>setTimeout(resolve,10));}throw new Error('Flow check timed out');};
  const ready=async()=>{await wait(()=>frame.contentDocument?.querySelector('[data-page]'));doc=frame.contentDocument;};
  const saved=()=>JSON.parse(localStorage.getItem('folio-data'));
  const set=(name,value)=>{const input=doc.querySelector(`#entry-form [name="${name}"]`);input.value=value;input.dispatchEvent(new frame.contentWindow.Event('change',{bubbles:true}));};
@@ -230,6 +230,6 @@ async function checkFlows(seed){
   if(doc.documentElement.dataset.displayMode!=='light'||doc.querySelector('[data-toggle-mode]').getAttribute('aria-checked')!=='false')failures.push('light mode not restored after reload');
   doc.querySelector('[data-summary-color="teal"]').click();await wait(()=>saved().preferences.summaryColor==='teal');if(saved().preferences.displayMode!=='light')failures.push('accent selection reset display mode');
   doc.querySelector('[data-toggle-mode]').click();await wait(()=>saved().preferences.displayMode==='dark');if(saved().preferences.summaryColor!=='teal'||doc.documentElement.dataset.displayMode!=='dark')failures.push('dark mode toggle lost selected color');
- }catch(error){failures.push(error.message);}finally{frame.remove();localStorage.setItem('folio-data',JSON.stringify(seed));}
+ }catch(error){failures.push(error.stack||error.message);}finally{frame.remove();localStorage.setItem('folio-data',JSON.stringify(seed));}
  return {width:'Functional',height:'flows',failures};
 }

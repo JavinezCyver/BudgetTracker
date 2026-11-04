@@ -1,5 +1,6 @@
+import {createInvestment,tradeInvestment,updateInvestmentPrice} from './record-actions.js';
 import {BudgetError} from './budget.js';
-import {createInvestment,tradeInvestment,updateInvestmentPrice,investmentTotals,investmentTypes,investmentWallets,holdingValue,realizedGain} from './investments.js';
+import {investmentTotals,investmentTypes,investmentWallets,holdingValue,realizedGain} from './investments.js';
 import {walletLabel} from './card-providers.js';
 import {availableForGoals} from './goal-balances.js';
 import {manilaDateKey} from './app-date.js';
@@ -51,7 +52,7 @@ export function bindInvestments({data,persist,render,money,escape,openWallet}){
   if(!pricing){const preview=()=>{const fields=new FormData(modal.querySelector('form')),units=Number(fields.get('units')),price=Number(fields.get('price')),fee=Number(fields.get('fee')||0);const valid=[units,price,fee].every(Number.isFinite)&&units>0&&units<=1000000000&&price>=0&&price<=100000000&&fee>=0&&fee<=100000000;const total=valid?(holdingValueCents(units,price)+(selling?-1:1)*Math.round(fee*100))/100:NaN;modal.querySelector('#investment-trade-preview').textContent=Number.isFinite(total)&&total>=0?`${selling?'Net proceeds':'Total cost'}: ${money(total)}`:'';};modal.querySelectorAll('input[type=number]').forEach(input=>input.addEventListener('input',preview));preview();}
   modal.querySelector('form').onsubmit=async event=>{
    event.preventDefault();const button=event.target.querySelector('[type=submit]');if(button.disabled)return;button.disabled=true;
-   try{const fields=Object.fromEntries(new FormData(event.target));fields.existing=fields.existing==='on';fields.kind=operation;const next=pricing?updateInvestmentPrice(data,id,fields):holding?tradeInvestment(data,id,fields):createInvestment(data,fields);await persist(next);const updated=holding?next.investments.find(item=>item.id===id):next.investments.at(-1);filters.query='';filters.type='all';filters.status=updated.units===0?'closed':'active';modal.close();render();const toast=document.querySelector('#toast');toast.textContent=pricing?'Price updated':selling?'Sale recorded':'Investment saved';toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),3000);}
+   try{const fields=Object.fromEntries(new FormData(event.target));fields.existing=fields.existing==='on';fields.kind=operation;const next=await persist(pricing?updateInvestmentPrice(data,id,fields):holding?tradeInvestment(data,id,fields):createInvestment(data,fields));const updated=holding?next.investments.find(item=>item.id===id):next.investments.at(-1);filters.query='';filters.type='all';filters.status=updated.units===0?'closed':'active';modal.close();render();const toast=document.querySelector('#toast');toast.textContent=pricing?'Price updated':selling?'Sale recorded':'Investment saved';toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),3000);}
    catch(error){button.disabled=false;modal.querySelector('#investment-error').textContent=error instanceof BudgetError?error.message:'Could not save. Please try again.';}
   };
  }

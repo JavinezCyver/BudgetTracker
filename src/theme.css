@@ -89,5 +89,14 @@ form label{color:var(--theme-c1cfb0,#c1cfb0)}form input,form select{background:v
  .sidebar-collapsed .sidebar{width:64px}.sidebar-collapsed .main-shell{margin-left:64px}
 }
 
-.sidebar .brand{font-size:18px;letter-spacing:-.5px;margin-left:9px}.pocketplan-monogram{display:none}.bank-folio .bank-brand{font-size:clamp(16px,7.5cqw,25px)}
+.sidebar .brand{font-size:18px;letter-spacing:-.5px;margin-left:9px;gap:8px}.pocketplan-logo{width:30px;height:30px;object-fit:cover;border-radius:8px;flex-shrink:0}.bank-folio .bank-brand{font-size:clamp(16px,7.5cqw,25px)}
 @media(max-width:760px){.sidebar .brand .pocketplan-wordmark{display:none}.sidebar .brand .pocketplan-monogram{display:inline}.sidebar .brand{margin-left:0;justify-content:center}}
+.sidebar-header{display:flex;align-items:center;gap:4px;margin-bottom:20px;min-width:0}
+.sidebar .sidebar-header .brand{margin:0;gap:6px;flex:1;min-width:0;font-size:15px;line-height:20px;letter-spacing:-.4px}
+.sidebar-header .pocketplan-logo{width:28px;height:28px}
+.sidebar-brand-copy{display:flex;flex-direction:column;min-width:0}
+.sidebar-header .pocketplan-wordmark{white-space:nowrap}
+.sidebar-header .sidebar-account{margin:0;font-size:8px;line-height:12px;letter-spacing:1px;font-weight:400}
+.sidebar-header .sidebar-toggle{position:static;flex-shrink:0;padding:0}
+.sidebar-collapsed .sidebar-header{justify-content:center;margin-bottom:8px}
+.sidebar-collapsed .sidebar-header .brand{display:none}

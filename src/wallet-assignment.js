@@ -1,3 +1,4 @@
+import {nativeBackend,assignAction} from './record-actions.js';
 import { BudgetError, cents, fromCents } from './budget.js';
 import { addedWallets } from './wallets.js';
 import { walletLabel } from './card-providers.js';
@@ -42,7 +43,7 @@ export function bindWalletAssignments({data,persist,render,money,escape}){
   modal.showModal();modal.onclick=event=>{if(event.target===modal)modal.close();};document.querySelector('#close-assignment').onclick=()=>modal.close();
   document.querySelector('#wallet-assignment-form').onsubmit=async event=>{
    event.preventDefault();const submit=event.target.querySelector('[type=submit]');if(submit.disabled)return;submit.disabled=true;
-   try{const fields=new FormData(event.target),assignments=new Map(pending.map((transaction,index)=>[transaction.id,fields.get(`assignment-${index}`)]));await persist(assignTransactionWallets(data,assignments));modal.close();render();}catch(error){submit.disabled=false;document.querySelector('#assignment-error').textContent=error instanceof BudgetError?error.message:'Could not update balances. Please try again.';}
+   try{const fields=new FormData(event.target),assignments=new Map(pending.map((transaction,index)=>[transaction.id,fields.get(`assignment-${index}`)]));await persist(nativeBackend()?assignAction(data,assignments):assignTransactionWallets(data,assignments));modal.close();render();}catch(error){submit.disabled=false;document.querySelector('#assignment-error').textContent=error instanceof BudgetError?error.message:'Could not update balances. Please try again.';}
   };
  };
 }

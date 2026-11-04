@@ -1,5 +1,5 @@
 body #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:100;box-sizing:border-box;width:max-content;max-width:min(280px,calc(100vw - 24px));padding:9px 12px;border-radius:9px;font-size:11px;font-weight:400;line-height:1.45;text-align:center;overflow-wrap:anywhere;box-shadow:0 4px 16px #0002;opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,8px);transition:opacity .15s ease,transform .15s ease}
 body #toast.visible{opacity:1;visibility:visible;transform:translate(-50%,0)}
 body #toast:empty{display:none}
-@media(max-width:760px){body #toast{bottom:calc(64px + env(safe-area-inset-bottom,0px));padding:8px 11px;font-size:10px;max-width:min(260px,calc(100vw - 24px))}}
+@media(max-width:760px){body #toast{bottom:calc(72px + env(safe-area-inset-bottom,0px));padding:8px 11px;font-size:10px;max-width:min(260px,calc(100vw - 24px))}}
 @media(prefers-reduced-motion:reduce){body #toast{transition:none}}

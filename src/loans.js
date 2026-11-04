@@ -1,12 +1,14 @@
+import {nativeMetric} from './native-metrics.js';
 import {BudgetError,cents,fromCents,validDate} from './budget.js';
 import {manilaDateKey} from './app-date.js';
 import {addedWallets} from './wallets.js';
 import {walletReserved} from './goal-balances.js';
 
 export const lendingWallets=data=>addedWallets(data.wallets).filter(wallet=>wallet.kind!=='liability');
-export const outstanding=loan=>fromCents(cents(loan.principal)-loan.repayments.reduce((sum,payment)=>sum+cents(payment.amount),0));
+export const outstanding=loan=>nativeMetric(loan)?.outstanding??fromCents(cents(loan.principal)-loan.repayments.reduce((sum,payment)=>sum+cents(payment.amount),0));
 export const loanStatus=(loan,today=manilaDateKey())=>outstanding(loan)===0?'paid':loan.dueDate&&loan.dueDate<today?'overdue':'open';
 export function lendingTotals(loans=[],today=manilaDateKey()){
+ if(nativeMetric(loans)?.today===today)return nativeMetric(loans).totals;
  let owed=0,overdue=0,repaid=0;for(const loan of loans){const balance=cents(outstanding(loan));owed+=balance;if(loanStatus(loan,today)==='overdue')overdue+=balance;repaid+=cents(loan.principal)-balance;}
  return {owed:fromCents(owed),overdue:fromCents(overdue),repaid:fromCents(repaid)};
 }

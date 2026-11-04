@@ -4,3 +4,5 @@ src-tauri/target/
 src-tauri/gen/
 *.log
 .responsive-check/
+crates/*/target/
+dist-native/

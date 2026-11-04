@@ -8,9 +8,11 @@ export default defineConfig({
       // Native builds and browser profiles contain files locked on Windows.
       ignored: [
         '**/src-tauri/**',
+        '**/crates/**',
         '**/.responsive-check/**',
         '**/.git/**',
         '**/dist/**',
+        '**/dist-native/**',
         '**/*.log',
       ],
       awaitWriteFinish: { stabilityThreshold: 200, pollInterval: 50 },

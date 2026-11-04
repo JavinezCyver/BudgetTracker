@@ -1,5 +1,6 @@
+import {createLoan,recordRepayment} from './record-actions.js';
 import {BudgetError} from './budget.js';
-import {createLoan,recordRepayment,outstanding,loanStatus,lendingTotals,lendingWallets} from './loans.js';
+import {outstanding,loanStatus,lendingTotals,lendingWallets} from './loans.js';
 import {manilaDateKey} from './app-date.js';
 import {walletLabel} from './card-providers.js';
 
