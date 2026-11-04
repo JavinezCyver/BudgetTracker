@@ -39,6 +39,8 @@ The native browser checks inject a test IPC bridge to the real Rust executable; 
 
 ## Native app
 
+For Windows releases, download the x64 `.exe` from the repository's **Releases** page and run it with Microsoft Edge WebView2 Runtime installed. The portable release does not require Node.js or Rust. Mobile binaries are not included.
+
 Install the Tauri platform prerequisites (Rust, and on Windows the MSVC C++ build tools and WebView2), then:
 
 ```sh
@@ -58,3 +60,15 @@ npm run tauri android build
 For a physical device, set Vite's host to `0.0.0.0` and Tauri's devUrl to your development machine's LAN address. iOS development requires macOS and Xcode; use `npm run tauri ios init` and `npm run tauri ios dev` on a Mac.
 
 Native bundles and mobile platform projects must be generated on a configured development machine. No mobile binary is included. This app stores data on one device and does not connect to a bank or synchronize accounts.
+
+## Publishing a Windows release
+
+The release workflow builds and publishes the portable Windows x64 executable with a SHA-256 checksum. Push a version tag matching `package.json`, or run **Release PocketPlan for Windows** manually from GitHub Actions:
+
+```sh
+git push origin main
+git tag -a v0.1.0 -m "PocketPlan v0.1.0"
+git push origin v0.1.0
+```
+
+For a local release build, run `npm run tauri -- build --no-bundle --ci -- --locked`, then `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-release.ps1`. The output is in the ignored `artifacts` directory. Release notes are in `.github/RELEASE_NOTES.md`. Published builds are unsigned and do not implement automatic updates.

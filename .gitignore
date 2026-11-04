@@ -6,3 +6,7 @@ src-tauri/gen/
 .responsive-check/
 crates/*/target/
 dist-native/
+artifacts/
+.env
+.env.*
+!.env.example
