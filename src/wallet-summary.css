@@ -1,0 +1,34 @@
+.net-summary{background:linear-gradient(108deg,var(--theme-285f12,#285f12) 0%,var(--theme-467e2b,#467e2b) 48%,var(--theme-75a34e,#75a34e) 100%);border:1px solid var(--theme-577e3b,#577e3b);border-radius:22px;padding:17px 17px 12px;color:var(--theme-f5faef,#f5faef);margin-bottom:22px;box-shadow:inset 0 1px 0 #ffffff0d}
+.net-summary-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.net-summary h2{font-size:10px;line-height:1.5;letter-spacing:1px;font-weight:700;margin:0 0 4px;color:var(--theme-eef7e6,#eef7e6)}
+.net-summary-value{font-size:clamp(25px,2.5vw,32px);font-weight:700;letter-spacing:-.6px;margin:0 0 10px;line-height:1.15;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.net-summary-top>div:first-child{min-width:0}
+.net-summary-actions{display:flex;gap:6px;flex-shrink:0;align-items:center}
+.net-summary-actions>button,.summary-menu>summary{display:grid;place-items:center;width:32px;height:32px;padding:0;background:#ffffff10;border:0;border-radius:50%;color:var(--theme-e6f4db,#e6f4db);cursor:pointer;list-style:none}
+.net-summary-actions>button:hover,.summary-menu>summary:hover{background:#ffffff25}
+.net-summary-actions .icon{width:18px;height:18px}
+.summary-menu{position:relative}.summary-menu>summary::-webkit-details-marker{display:none}.summary-menu>summary span{font-size:12px;letter-spacing:1px}
+.summary-menu>summary:focus-visible{outline:2px solid var(--theme-e0f3c5,#e0f3c5);outline-offset:3px}
+.summary-popover{position:absolute;right:0;top:40px;width:220px;padding:10px;background:var(--theme-25311e,#25311e);border:1px solid var(--theme-5e7b44,#5e7b44);border-radius:12px;box-shadow:0 12px 30px #0005;z-index:6;color:var(--theme-e3ecd9,#e3ecd9)}
+.summary-popover button{display:flex;gap:8px;align-items:center;width:100%;padding:10px;border-radius:6px;text-align:left;font-size:12px;min-height:44px}.summary-popover button:hover{background:var(--theme-3c502e,#3c502e)}
+.summary-popover p{font-size:11px;line-height:1.6;color:var(--theme-b8caaa,#b8caaa);margin:8px 10px}
+.net-summary-totals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
+.net-summary-totals>div{padding:9px 12px;background:#ffffff1c;border:1px solid #ffffff22;border-radius:17px;min-width:0;box-shadow:inset 0 1px 0 #ffffff07}
+.net-summary-totals dt{font-size:11px;line-height:1.3;color:var(--theme-e5f0da,#e5f0da);font-weight:700}
+.net-summary-totals dd{font-size:16px;font-weight:700;margin:2px 0 0;line-height:1.2;color:var(--theme-f4faed,#f4faed);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+@media(max-width:540px){.net-summary{border-radius:19px;padding:15px 12px 12px}.net-summary-top{gap:6px}.net-summary h2{font-size:9px;letter-spacing:.6px;max-width:170px}.net-summary-actions{gap:3px}.net-summary-actions>button,.summary-menu>summary{width:32px;height:36px}.net-summary-value{font-size:26px}.net-summary-totals{gap:6px}.net-summary-totals>div{padding:9px;border-radius:13px}.net-summary-totals dd{font-size:15px}.summary-popover{width:min(220px,calc(100vw - 110px))}}
+@media(max-width:360px){.net-summary-top{flex-wrap:wrap}.net-summary-actions{margin-bottom:8px}.net-summary-totals{grid-template-columns:minmax(0,1fr)}}
+@media(pointer:coarse){.net-summary-actions>button,.summary-menu>summary{min-width:44px;min-height:44px}}
+
+/* Keep wallet creation prominent at every screen size. */
+.page-heading #add{font-size:13px;font-weight:700;min-height:40px;padding:10px 16px;gap:7px;background:var(--theme-9bd14f,#9bd14f);border-color:var(--theme-b2df77,#b2df77);color:var(--theme-19280d,#19280d);box-shadow:0 3px 12px #0002}
+.page-heading #add:hover{background:var(--theme-afe366,#afe366)}
+.page-heading #add .icon{width:16px;height:16px;stroke-width:2}
+.summary-popover #summary-add-wallet{font-size:13px;font-weight:700;color:var(--theme-d9f5b9,#d9f5b9)}
+@media(pointer:coarse){.page-heading #add{min-height:44px}}
+.page-heading #add.wallet-add-icon{width:36px;height:36px;min-width:36px;min-height:36px;padding:0;border-radius:50%;background:var(--theme-83b64b,#83b64b);border:1px solid var(--theme-94c45d,#94c45d);color:var(--theme-f5ffe9,#f5ffe9);box-shadow:none;flex-shrink:0}
+.page-heading #add.wallet-add-icon:hover{background:var(--theme-96c95c,#96c95c)}
+.page-heading #add.wallet-add-icon .icon{width:19px;height:19px;stroke-width:1.6}
+@media(pointer:coarse){.page-heading #add.wallet-add-icon{width:44px;height:44px;min-width:44px;min-height:44px}}
+.wallets-page .page-heading>div,.wallets-page .date-line{display:none}
+.wallets-page .page-heading{justify-content:flex-end;padding:0;margin-bottom:10px;gap:0}

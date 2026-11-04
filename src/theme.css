@@ -1,0 +1,93 @@
+/* Shared charcoal and lime theme, matching the reference app shell. */
+:root{color-scheme:dark;color:var(--theme-eceee9,#eceee9);background:#262726;font-family:Arial,"Segoe UI",sans-serif}
+body{background:radial-gradient(ellipse at 75% 0,#30312e 0,transparent 55%),#252625}
+button:focus-visible,a:focus-visible{outline-color:var(--theme-92c64c,#92c64c)}
+.sidebar{width:180px;background:#202120;border-color:#2c2d2a;padding:14px 9px 0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--theme-41483a,#41483a) transparent}
+.main-shell{margin-left:180px;min-height:100dvh}
+.sidebar .brand{font-size:21px;line-height:26px;margin-left:9px;letter-spacing:-.6px;font-weight:700}
+.sidebar-account{margin:0 10px 20px;font-size:9px;color:var(--theme-d2d5ce,#d2d5ce);letter-spacing:1.1px}
+.sidebar-toggle{top:17px;right:10px;font-size:20px;color:#b8bcb3}
+.sidebar .nav-label{font-size:9px;margin:0 10px 6px;color:var(--theme-c2c6bc,#c2c6bc);letter-spacing:1.1px}
+.sidebar .nav-item{min-height:34px;padding:8px 10px;gap:11px;font-size:12px;border-radius:7px;color:var(--theme-c6c9c1,#c6c9c1)}
+.sidebar .nav-item .icon{width:16px;height:16px;color:var(--theme-bec3b7,#bec3b7)}
+.sidebar .nav-item.active{background:var(--theme-333e29,#333e29);color:var(--theme-f0f4e9,#f0f4e9)}
+.sidebar .nav-item.active .icon{color:var(--theme-95c654,#95c654);fill:var(--theme-95c65415,#95c65415)}
+.sidebar .nav-item.active::before{background:var(--theme-92bd4e,#92bd4e);top:6px;bottom:6px;width:2px}
+.sidebar .nav-item:hover{background:var(--theme-30352a,#30352a)}
+.sidebar .profile{font-size:10px;padding:16px 4px;border-color:#31332d}
+.sidebar .profile small{font-size:9px;color:var(--theme-a5ae9c,#a5ae9c)}
+.topbar{height:48px;background:#242623;border-color:var(--theme-33362f,#33362f);padding:0 22px}
+.breadcrumb{color:var(--theme-a4ad9a,#a4ad9a);font-size:10px}.breadcrumb strong{color:var(--theme-e1e6da,#e1e6da)}.breadcrumb span{color:var(--theme-616a58,#616a58)}
+.local-badge{color:var(--theme-a8b39d,#a8b39d)}.local-badge i{background:var(--theme-8dbf4f,#8dbf4f)}
+.avatar{background:var(--theme-3a4630,#3a4630);border-color:var(--theme-2b3026,#2b3026);outline-color:var(--theme-505c43,#505c43);color:var(--theme-d7ebbd,#d7ebbd)}
+main{padding:20px 22px 0;max-width:1600px}
+.page-heading{padding:4px 0 0}.eyebrow{font-size:9px;letter-spacing:1.2px;color:var(--theme-bcc7b0,#bcc7b0);margin-bottom:7px}
+h1{font-size:24px;color:var(--theme-f3f5ef,#f3f5ef);font-weight:600;letter-spacing:-.5px;margin-bottom:7px}
+.page-heading p{color:var(--theme-b0b6a9,#b0b6a9);font-size:11px}
+.primary-button{background:var(--theme-86ba44,#86ba44);color:var(--theme-f8ffef,#f8ffef);border:1px solid var(--theme-9bc65f,#9bc65f);border-radius:20px;box-shadow:none;font-weight:600;padding:11px 16px}
+.primary-button:hover{background:var(--theme-96ca52,#96ca52)}
+.date-line{margin:20px 0 13px}.date-line>span:first-child{background:#292c27;border-color:var(--theme-3a4033,#3a4033);color:var(--theme-c0cbb4,#c0cbb4)}
+.subtle{color:var(--theme-9ba58f,#9ba58f)}
+.stats{gap:10px;margin-bottom:14px;grid-template-columns:1.25fr 1fr 1fr}
+.stat{background:linear-gradient(140deg,var(--theme-292c26,#292c26),#222420);border:1px solid var(--theme-3b4034,#3b4034);border-radius:17px;padding:18px}
+.stat.primary{background:linear-gradient(112deg,var(--theme-265a0f,#265a0f),var(--theme-609738,#609738));border-color:var(--theme-5c893b,#5c893b)}
+.stat-label{color:var(--theme-c8d0bf,#c8d0bf);font-size:10px;letter-spacing:.8px;text-transform:uppercase}
+.stat-label>span{color:var(--theme-a2c86f,#a2c86f);background:var(--theme-35422b,#35422b);border-radius:50%}
+.stat.primary .stat-label{color:var(--theme-edf4e6,#edf4e6)}.stat.primary .stat-label>span{background:#ffffff15;color:var(--theme-edf8df,#edf8df)}
+.stat h2{font-size:27px;font-weight:650;color:var(--theme-f1f5eb,#f1f5eb);margin:12px 0 15px}
+.stat p{font-size:9px;color:var(--theme-b1bda4,#b1bda4)}.stat.primary p{color:var(--theme-e0edcf,#e0edcf)}
+.mini-pill{background:#ffffff17;color:var(--theme-e2f4cc,#e2f4cc)}
+.panel{background:linear-gradient(135deg,#252724,#20221f);border:1px solid var(--theme-3a3e33,#3a3e33);border-radius:17px;padding:17px}
+.section-head h3{font-size:14px;color:var(--theme-edf0e6,#edf0e6);letter-spacing:-.2px}
+.section-head p{font-size:10px;color:var(--theme-a6af9a,#a6af9a)}
+.period{background:var(--theme-2c3028,#2c3028);border-color:var(--theme-414936,#414936);color:var(--theme-c4cfb7,#c4cfb7);font-size:10px;border-radius:9px}
+.middle-grid{gap:12px;margin-bottom:18px;grid-template-columns:1.45fr 1fr}
+.chart-legend{color:var(--theme-b0bba3,#b0bba3);margin-top:17px}
+.purple-dot{background:var(--theme-92c64e,#92c64e)}.light-dot{background:var(--theme-4d6335,#4d6335)}
+.bar.income{background:linear-gradient(var(--theme-a1d259,#a1d259),var(--theme-6ca432,#6ca432))}.bar.expense{background:var(--theme-435b2f,#435b2f)}
+.grid-lines i{border-color:var(--theme-3b4134,#3b4134)}.y-labels,.bar-group>span{color:var(--theme-929f83,#929f83)}
+.chart-footer{border-color:var(--theme-383e31,#383e31);color:var(--theme-a2b18e,#a2b18e)}.chart-footer .icon{color:var(--theme-91bc5c,#91bc5c)}
+.donut>div{background:var(--theme-232620,#232620)}.donut small{color:var(--theme-acb89e,#acb89e)}.donut strong{color:var(--theme-f1f5e9,#f1f5e9)}
+.category-list>div{color:var(--theme-b5bea9,#b5bea9)}.category-list strong{color:var(--theme-d3ddc6,#d3ddc6)}
+.wallet-section>.section-head{margin-bottom:12px}.count{background:var(--theme-35442a,#35442a);color:var(--theme-b3d68c,#b3d68c)}
+.text-button{color:var(--theme-a3ce64,#a3ce64);border:1px solid var(--theme-3b4631,#3b4631);border-radius:15px;padding:6px 10px}
+.text-button:hover{background:var(--theme-35432a,#35432a)}
+.wallet-grid{gap:12px;margin-bottom:16px}
+.wallet-card{background:radial-gradient(ellipse at 95% 110%,var(--theme-648f34,#648f34) 0,transparent 60%),linear-gradient(120deg,var(--theme-1a3d19,#1a3d19),var(--theme-355d28,#355d28));border-color:var(--theme-537340,#537340);border-radius:14px;padding:20px;color:var(--theme-d2e7b7,#d2e7b7);position:relative;overflow:hidden}
+.wallet-card::after{content:"";position:absolute;width:150px;height:150px;right:-45px;top:-70px;border:22px solid #ffffff08;border-radius:50%;pointer-events:none}
+.wallet-card.green{background:radial-gradient(ellipse at 110% 100%,#366c65,transparent 65%),#183d35!important;border-color:var(--theme-40645b,#40645b);color:var(--theme-b7ddd0,#b7ddd0)!important}
+.wallet-card.peach{background:radial-gradient(ellipse at 100% 120%,#a16c22,transparent 65%),#60431d!important;border-color:#876837;color:#e9d4a6!important}
+.wallet-card h2,.wallet-card.green h2,.wallet-card.peach h2{color:var(--theme-f4f8ec,#f4f8ec);font-weight:650}
+.wallet-card p{font-size:11px}.wallet-bottom{font-size:9px;opacity:.9}
+.search{background:var(--theme-292d25,#292d25);border-color:var(--theme-414a35,#414a35)}.search .icon{color:var(--theme-9ab47e,#9ab47e)}
+.search input{color:var(--theme-e4edda,#e4edda)}.search input::placeholder{color:var(--theme-9ea891,#9ea891)}
+th{color:var(--theme-acb79e,#acb79e);border-color:var(--theme-3c4334,#3c4334);font-size:9px}td{border-color:var(--theme-343b2e,#343b2e)}
+.merchant strong{color:var(--theme-e2e8d9,#e2e8d9);font-size:11px}.merchant small{color:var(--theme-a3b092,#a3b092);font-size:9px}
+.merchant-icon.lavender{background:var(--theme-343e2b,#343e2b);color:var(--theme-a4c579,#a4c579)}
+.merchant-icon.green,.stat-label>.green{background:var(--theme-2e412b,#2e412b)!important;color:var(--theme-a9ce78,#a9ce78)!important}
+.merchant-icon.peach,.stat-label>.peach{background:#483827!important;color:#d4ad6d!important}
+.tag{background:var(--theme-30372a,#30372a);color:var(--theme-b5c6a2,#b5c6a2);font-size:9px}.wallet-cell{color:var(--theme-b0bba2,#b0bba2)}
+.amount{color:var(--theme-e0e8d6,#e0e8d6)}.amount.positive{color:var(--theme-9bcc55,#9bcc55)}
+.empty{color:var(--theme-adb99e,#adb99e)}footer{color:var(--theme-8a967b,#8a967b)}
+.calendar-panel{margin-bottom:15px}.calendar-controls button{background:var(--theme-35432b,#35432b);color:var(--theme-c4dfa3,#c4dfa3)}
+.weekday{color:var(--theme-aab99a,#aab99a)}.day{background:var(--theme-292e24,#292e24);border-color:var(--theme-39432e,#39432e);color:var(--theme-dbe7cb,#dbe7cb)}
+.day small{color:var(--theme-a6c583,#a6c583)}.day:hover{background:var(--theme-36472a,#36472a)}.day.is-today>span{color:var(--theme-b0e36c,#b0e36c)}.day.selected{background:var(--theme-3a5228,#3a5228);border-color:var(--theme-8dbb4e,#8dbb4e)}
+dialog{background:var(--theme-252b21,#252b21);border-color:var(--theme-4c5d3e,#4c5d3e);color:var(--theme-edf3e6,#edf3e6);box-shadow:0 20px 100px #0008}
+dialog::backdrop{background:var(--theme-080b07a6,#080b07a6)}.close-button{color:var(--theme-b0c29b,#b0c29b)}.modal-subtitle{color:var(--theme-acbd9a,#acbd9a)}
+form label{color:var(--theme-c1cfb0,#c1cfb0)}form input,form select{background:var(--theme-1e251a,#1e251a);border-color:var(--theme-4d5e3c,#4d5e3c);color:var(--theme-eef5e5,#eef5e5);outline-color:var(--theme-9cc95d,#9cc95d)}
+#form-error{color:#ffa79a}#toast{background:var(--theme-415c2b,#415c2b);color:var(--theme-f2f9e9,#f2f9e9);border:1px solid var(--theme-81aa4f,#81aa4f)}
+.green-dot{background:var(--theme-99c451,#99c451)}.peach-dot{background:#cfad65}
+@media(min-width:1500px){main{padding:22px 26px 0}.stats{margin-top:0}.chart{height:205px}}
+@media(max-width:1100px){.sidebar{width:180px}.main-shell{margin-left:180px}.sidebar-collapsed .main-shell{margin-left:72px}}
+@media(max-width:760px){
+ .sidebar{width:64px;padding:18px 6px 0}.main-shell{margin-left:64px}
+ .sidebar .brand{font-size:16px;margin:0 0 22px}.sidebar .nav-item{min-height:42px;padding:12px 0;justify-content:center}
+ .topbar{height:44px;padding:0 15px}main{padding:17px 13px 0}h1{font-size:22px}
+ .stats{grid-template-columns:1fr 1fr;gap:9px}.stat{padding:15px;border-radius:13px}.stat.primary{grid-column:1/-1}.stat h2{font-size:22px}.stat.primary h2{font-size:29px}
+ .middle-grid{grid-template-columns:1fr;gap:12px}.panel{padding:15px 12px;border-radius:14px}.wallet-grid{grid-template-columns:1fr}.wallet-card{padding:19px}
+ .spending{grid-template-columns:1fr 1fr}.wallet-cell{display:none}.merchant strong{font-size:10px}.tag{font-size:8px}.amount{font-size:10px}
+ .sidebar-collapsed .sidebar{width:64px}.sidebar-collapsed .main-shell{margin-left:64px}
+}
+
+.sidebar .brand{font-size:18px;letter-spacing:-.5px;margin-left:9px}.pocketplan-monogram{display:none}.bank-folio .bank-brand{font-size:clamp(16px,7.5cqw,25px)}
+@media(max-width:760px){.sidebar .brand .pocketplan-wordmark{display:none}.sidebar .brand .pocketplan-monogram{display:inline}.sidebar .brand{margin-left:0;justify-content:center}}

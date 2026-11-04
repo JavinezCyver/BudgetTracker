@@ -1,0 +1,47 @@
+/* Presentation only: wallet deletion behavior and confirmation stay intact. */
+dialog:has(.manage-wallets){width:min(370px,calc(100% - 24px));padding:22px;background:var(--theme-242a20,#242a20);border:1px solid var(--theme-48533d,#48533d);border-radius:18px;box-shadow:0 24px 70px #0006}
+dialog:has(.manage-wallets) .section-head{gap:12px;padding-bottom:4px}
+dialog:has(.manage-wallets) .section-head h3{font-size:17px;font-weight:600;letter-spacing:-.3px;color:var(--theme-eef3e8,#eef3e8);line-height:1.3}
+dialog:has(.manage-wallets) .close-button{display:grid;place-items:center;width:30px;height:30px;min-width:30px;min-height:30px;border-radius:50%;background:#ffffff06;border:1px solid #ffffff08;color:var(--theme-a9b79c,#a9b79c);font-size:21px;line-height:1}
+dialog:has(.manage-wallets) .close-button:hover{background:#ffffff0e;color:var(--theme-e4ecda,#e4ecda)}
+dialog:has(.manage-wallets) .modal-subtitle{font-size:11px;line-height:1.7;color:var(--theme-a3b196,#a3b196);margin:8px 0 20px;max-width:270px}
+.manage-wallets{display:flex;flex-direction:column;gap:8px;max-height:min(350px,55dvh);padding:1px 3px 1px 1px;scrollbar-color:var(--theme-596b46,#596b46) transparent;scrollbar-width:thin}
+.manage-wallets>div{display:grid;grid-template-columns:34px minmax(0,1fr) auto;column-gap:10px;align-items:center;min-height:70px;padding:13px 11px;border:1px solid var(--theme-3d4834,#3d4834);border-radius:11px;background:var(--theme-2a3225,#2a3225);font-size:12px}
+.manage-wallets>div::before{content:"";grid-column:1;grid-row:1;width:34px;height:34px;border-radius:10px;border:1px solid var(--theme-50603f,#50603f);background:var(--theme-34422b,#34422b) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23b5cc99' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 8V5a2 2 0 0 0-2-2H5a3 3 0 0 0 0 6h15v12H5a3 3 0 0 1-3-3V6'/%3E%3Cpath d='M21 12h-6v5h6'/%3E%3C/svg%3E") center/18px no-repeat}
+.manage-wallets>div>span{grid-column:2;grid-row:1;min-width:0}
+.manage-wallets strong{display:block;font-size:13px;line-height:1.45;font-weight:500;color:var(--theme-e4ecda,#e4ecda);overflow-wrap:anywhere}
+.manage-wallets small{font-size:10px;line-height:1.4;color:var(--theme-93a285,#93a285);margin-top:4px;font-weight:400}
+.manage-wallets button{grid-column:3;grid-row:1;display:flex;align-items:center;justify-content:center;gap:5px;min-height:34px;padding:7px 10px;border:1px solid #805345;border-radius:8px;background:#50372c;color:#edc2ad;font-size:11px;font-weight:500;white-space:nowrap;transition:background-color .14s,border-color .14s}
+.manage-wallets button::before{content:"";width:12px;height:13px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23edc2ad' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 10v7m4-7v7'/%3E%3C/svg%3E") center/contain no-repeat}
+.manage-wallets button:hover{background:#654034;border-color:#a46b54}
+.manage-wallets button:focus-visible{outline:2px solid #d69b7e;outline-offset:3px}
+.manage-wallets>p{padding:30px 15px;border:1px dashed var(--theme-4a5b3b,#4a5b3b);border-radius:12px;margin:0;text-align:center;color:var(--theme-a7b899,#a7b899);font-size:12px;line-height:1.6;background:var(--theme-2a3324,#2a3324)}
+@media(max-width:380px){dialog:has(.manage-wallets){padding:18px}.manage-wallets>div{grid-template-columns:29px minmax(0,1fr) auto;gap:8px;padding:11px 9px}.manage-wallets>div::before{width:29px;height:31px;background-size:16px}.manage-wallets button{padding:7px 8px;font-size:10px}.manage-wallets strong{font-size:12px}}
+@media(pointer:coarse){dialog:has(.manage-wallets) .close-button{width:40px;height:40px;min-width:40px;min-height:40px}.manage-wallets button{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.manage-wallets button{transition:none}}
+@media(max-width:600px){
+ body dialog.compact-wallet-dialog:has(.manage-wallets){width:min(300px,calc(100% - 28px));padding:14px;border-radius:12px;max-height:calc(var(--app-viewport-height,100dvh) - 28px);overflow-y:auto}
+ body dialog:has(.manage-wallets) .section-head{gap:8px;padding:0;margin:0 0 8px}
+ body dialog:has(.manage-wallets) .section-head h3{font-size:13px;line-height:1.4;margin:0;letter-spacing:0}
+ body dialog:has(.manage-wallets) .close-button{width:28px;height:28px;min-width:28px;min-height:28px;font-size:19px}
+ body dialog:has(.manage-wallets) .modal-subtitle{font-size:10px;line-height:1.5;margin:0 0 12px}
+ body .manage-wallets{gap:6px;max-height:min(260px,50dvh);padding:1px}
+ body .manage-wallets>div{grid-template-columns:26px minmax(0,1fr) auto;gap:8px;min-height:52px;padding:8px;border-radius:9px}
+ body .manage-wallets>div::before{width:26px;height:28px;border-radius:7px;background-size:14px}
+ body .manage-wallets strong{font-size:11px;line-height:1.35}
+ body .manage-wallets small{font-size:9px;margin-top:3px}
+ body .manage-wallets button{min-height:30px;padding:5px 7px;font-size:10px;border-radius:7px;gap:4px}
+ body .manage-wallets button::before{width:10px;height:11px}
+ body .manage-wallets>p{padding:18px 10px;font-size:11px}
+ body dialog.compact-wallet-dialog:has(#confirm-delete-wallet){width:min(300px,calc(100% - 28px));padding:14px;border-radius:12px;max-height:calc(var(--app-viewport-height,100dvh) - 28px);overflow-y:auto}
+ body dialog:has(#confirm-delete-wallet) .section-head{gap:8px;margin:0 0 9px}
+ body dialog:has(#confirm-delete-wallet) .section-head h3{font-size:13px;line-height:1.4;font-weight:600;margin:0}
+ body dialog:has(#confirm-delete-wallet) .close-button{width:28px;height:28px;min-width:28px;min-height:28px;font-size:19px;padding:0}
+ body dialog:has(#confirm-delete-wallet) .delete-wallet-summary{padding:9px 10px;border-radius:8px;margin:0 0 10px}
+ body dialog:has(#confirm-delete-wallet) .delete-wallet-summary strong{font-size:12px;font-weight:500;line-height:1.4}
+ body dialog:has(#confirm-delete-wallet) .delete-wallet-summary span{font-size:10px;margin-top:3px}
+ body dialog:has(#confirm-delete-wallet) .delete-wallet-description{font-size:11px;line-height:1.5;margin:0 0 13px}
+ body dialog:has(#confirm-delete-wallet) .delete-wallet-actions{gap:7px}
+ body dialog:has(#confirm-delete-wallet) .delete-wallet-actions button{min-height:34px;padding:7px 8px;font-size:11px;border-radius:7px}
+ body dialog:has(#confirm-delete-wallet) #manage-error:empty{display:none}
+}

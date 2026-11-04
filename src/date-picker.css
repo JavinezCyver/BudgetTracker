@@ -1,0 +1,26 @@
+.date-input{position:relative;width:100%;min-width:0;font-weight:400}
+.date-input .date-native{position:absolute!important;inset:0 auto auto 0!important;width:1px!important;height:1px!important;min-height:0!important;padding:0!important;border:0!important;opacity:0;pointer-events:none}
+.date-trigger{width:100%;min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 11px;background:var(--theme-1e251b,#1e251b);border:1px solid var(--theme-4b593c,#4b593c);border-radius:7px;color:var(--theme-e5eddc,#e5eddc);font-size:14px;text-align:left;transition:border-color .14s}
+.date-trigger>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.date-trigger svg{width:17px;height:17px;flex-shrink:0;color:var(--theme-a5bd8c,#a5bd8c)}.date-trigger:hover,.date-trigger[aria-expanded=true]{border-color:var(--theme-91b859,#91b859)}.date-trigger[aria-invalid=true]{border-color:#d49b76}
+.date-picker{position:fixed;inset:auto;margin:0;padding:15px;box-sizing:border-box;background:var(--theme-252d20,#252d20);border:1px solid var(--theme-4a583b,#4a583b);border-radius:14px;color:var(--theme-e2ecd7,#e2ecd7);box-shadow:0 12px 35px #0006;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--theme-64794b,#64794b) transparent;font-family:inherit;font-weight:400}
+.date-picker[hidden]{display:none}.date-picker:popover-open{display:block;animation:date-picker-open .12s ease-out}
+.date-picker-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+.date-picker-header small{font-size:8px;letter-spacing:1.3px;color:var(--theme-96aa81,#96aa81);font-weight:600}.date-picker-header h3{font-size:16px;margin:5px 0 0;letter-spacing:-.2px;font-weight:600;color:var(--theme-edf4e5,#edf4e5)}
+.date-picker-navigation{display:flex;gap:3px}.date-picker-navigation button{width:30px;height:32px;padding:6px;background:var(--theme-303e26,#303e26);border:1px solid var(--theme-485b35,#485b35);border-radius:7px;color:var(--theme-caddb7,#caddb7);display:grid;place-items:center}.date-picker-navigation svg{width:16px;height:16px}
+.date-picker-weekdays,.date-picker-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}.date-picker-weekdays{margin-bottom:6px}.date-picker-weekdays span{font-size:10px;color:var(--theme-97a88a,#97a88a);text-align:center;padding:4px 0}
+.date-picker-grid button{width:100%;aspect-ratio:1;min-width:0;min-height:29px;padding:3px;font-size:12px;font-weight:400;border-radius:7px;color:var(--theme-dbe6d1,#dbe6d1);border:1px solid transparent;background:transparent;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.date-picker-grid button:hover,.date-picker-grid button:focus-visible{background:var(--theme-394b2d,#394b2d);border-color:var(--theme-8eb65b,#8eb65b);outline:none}.date-picker-grid button.picker-outside{color:var(--theme-748568,#748568)}.date-picker-grid button.picker-today{border-color:var(--theme-688a45,#688a45);color:var(--theme-c5e3a1,#c5e3a1)}.date-picker-grid button.picker-selected{background:var(--theme-9bc85d,#9bc85d);color:var(--theme-1d2c12,#1d2c12);font-weight:700;border-color:var(--theme-9bc85d,#9bc85d)}.date-picker-grid button:disabled{opacity:.3;cursor:default}
+.date-picker-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--theme-3b4a30,#3b4a30);padding-top:10px;margin-top:12px}.date-picker-footer>span{font-size:9px;color:var(--theme-96a887,#96a887)}.date-picker-footer button{font-size:11px;padding:6px 12px;min-height:30px;background:var(--theme-34482a,#34482a);color:var(--theme-cde5b4,#cde5b4);border:1px solid var(--theme-536c3d,#536c3d);border-radius:7px}
+@keyframes date-picker-open{from{opacity:0;translate:0 -3px}to{opacity:1;translate:0 0}}
+@media(max-width:540px){.date-picker{padding:12px;border-radius:12px}.date-picker-grid{gap:2px}.date-picker-grid button{min-height:31px}.date-picker-header h3{font-size:15px}}
+@media(pointer:coarse){.date-picker-grid button{min-height:34px}.date-picker-navigation button{width:34px;height:36px}.date-picker-footer button{min-height:36px}}
+@media(prefers-reduced-motion:reduce){.date-picker:popover-open{animation:none}.date-trigger{transition:none}}
+
+/* Compact popup; leave the main Calendar page unchanged. */
+.date-picker{padding:10px;border-radius:11px}
+.date-picker-header{margin-bottom:10px;gap:6px}.date-picker-header h3{font-size:14px;margin-top:3px}.date-picker-header small{font-size:7px;letter-spacing:1px}
+.date-picker-navigation button{width:27px;height:28px;padding:5px}.date-picker-navigation svg{width:14px;height:14px}
+.date-picker-weekdays,.date-picker-grid{gap:2px}.date-picker-weekdays{margin-bottom:3px}.date-picker-weekdays span{font-size:9px;padding:3px 0}
+.date-picker-grid button{min-height:27px;font-size:11px;border-radius:6px;padding:2px}
+.date-picker-footer{padding-top:8px;margin-top:8px}.date-picker-footer button{font-size:10px;min-height:27px;padding:5px 10px}.date-picker-footer>span{font-size:8px}
+@media(pointer:coarse){.date-picker-grid button{min-height:30px}.date-picker-navigation button{width:30px;height:32px}.date-picker-footer button{min-height:32px}}

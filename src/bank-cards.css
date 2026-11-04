@@ -1,0 +1,130 @@
+/* All card artwork is drawn with CSS; provider names are text. */
+.wallets-page .wallet-layout-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.wallet-card.bank-card{container-type:inline-size;position:relative;isolation:isolate;aspect-ratio:1.59;min-height:0;padding:13px 12px 11px;border-radius:12px;border:1px solid #ffffff30;display:flex;flex-direction:column;justify-content:space-between;gap:0;background:var(--card-bg,linear-gradient(125deg,#285719,#709d42));color:var(--card-ink,#fff)!important;box-shadow:0 3px 10px #0002;overflow:hidden}
+.bank-card::after{display:none}.bank-card>*{position:relative;z-index:1}.bank-card .bank-art{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bank-art::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 20% 10%,#ffffff12,transparent 60%);opacity:.8}
+.bank-art::after{content:"";position:absolute;width:95%;height:150%;right:-40%;top:15%;border:25px solid #ffffff15;border-radius:50%;transform:rotate(-30deg)}
+.bank-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;min-width:0}
+.bank-card p.bank-brand{margin:0;font-size:clamp(17px,10cqw,27px);font-weight:750;line-height:1.05;letter-spacing:-.6px;overflow-wrap:normal;color:inherit}
+.bank-options{width:23px;height:23px;min-width:23px;padding:0;border-radius:50%;background:#08121bc4;color:#fff;display:grid;place-items:center;font-size:9px;letter-spacing:.3px;line-height:1;cursor:pointer}
+.bank-options:hover{background:#000d}.bank-options:focus-visible{outline:2px solid white;outline-offset:2px}
+.bank-chip{width:30px;height:24px;display:block;margin:auto 0;border-radius:5px;border:1px solid #6b685bd9;background:linear-gradient(125deg,#ece7c4,#c7b66e 45%,#f5e8af 70%,#a18d4e);overflow:hidden;position:relative;box-shadow:inset 0 1px 2px #ffffff80;flex-shrink:0}
+.bank-chip::before{content:"";position:absolute;inset:6px 0;border-top:1px solid #777363aa;border-bottom:1px solid #777363aa}.bank-chip::after{content:"";position:absolute;inset:0 8px;border-left:1px solid #777363aa;border-right:1px solid #777363aa;border-radius:5px}
+.bank-card-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:6px;min-width:0}.bank-balance{min-width:0;flex:1}
+.bank-balance small{font-size:clamp(7px,3.6cqw,9px);font-weight:600;letter-spacing:.35px;opacity:.9;display:block;line-height:1.2}
+.bank-card .bank-balance h2{font-size:clamp(13px,7.4cqw,20px);margin:3px 0 0;line-height:1.05;font-weight:750;letter-spacing:-.25px;color:inherit;overflow-wrap:anywhere}
+.bank-wallet-name{font-size:clamp(7px,3.7cqw,10px);line-height:1.2;margin-top:4px;opacity:.8;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.bank-network{flex-shrink:0;font-size:clamp(15px,9cqw,26px);font-weight:800;font-style:italic;letter-spacing:-1px;line-height:1}
+.network-folio{font-size:clamp(12px,7cqw,20px);font-style:normal;opacity:.7}.network-mastercard{position:relative;display:flex;width:40px;height:26px;align-items:center}.network-mastercard i{width:26px;height:26px;border-radius:50%;background:#f42a20;position:absolute;left:0}.network-mastercard i+i{background:#ffb800;left:15px;opacity:.95;mix-blend-mode:screen}
+.bank-salmon{--card-bg:linear-gradient(118deg,#f4a0cd 5%,#ffb7b2 40%,#b8df9d 72%,#6adce3 100%)}
+.bank-atome{--card-bg:linear-gradient(125deg,#fff3b0,#ffd3d8 32%,#cbbff0 63%,#94e3df);--card-ink:#262529}.bank-atome .bank-art::after{content:"A";border:0;border-radius:0;font-size:140px;font-weight:900;font-style:italic;color:#ffffff50;width:auto;height:auto;right:13%;top:15%;text-shadow:3px 4px 0 #989be330}
+.bank-gcash{--card-bg:linear-gradient(120deg,#0646d9,#005cfa 65%,#092aaf)}.bank-gcash .bank-art::after{border-width:20px;box-shadow:0 0 0 16px #ffffff0a,inset 0 0 0 16px #ffffff0a}
+.bank-bpi{--card-bg:linear-gradient(135deg,#820413,#c6001c 50%,#660007)}.bank-bpi .bank-art::after{border-radius:20px;right:-10%;top:-60%;transform:rotate(40deg);border-color:#ef405524}
+.bank-maya{--card-bg:linear-gradient(120deg,#a50044,#d0115d 60%,#820437)}.bank-maya .bank-art::after{content:"m";border:0;right:-8%;top:8%;font-size:180px;font-weight:800;color:#ff95bd22;transform:none;line-height:1}
+.bank-unionbank{--card-bg:linear-gradient(120deg,#d9e2e4,#edf0df 55%,#bcdacf);--card-ink:#3e4544}.bank-unionbank .bank-brand{font-size:clamp(14px,7cqw,22px);letter-spacing:-.8px}.bank-unionbank .bank-art::after{border-radius:0;border:0;background:#c5d5dd70;right:8%;top:-20%;transform:rotate(10deg);width:35%}
+.bank-maribank{--card-bg:linear-gradient(120deg,#ff5100,#ff7f00 70%,#f34a00)}.bank-maribank .bank-art::after{border:0;background:#ffb52a80;border-radius:50%;width:120%;height:80%;right:-30%;top:65%;transform:rotate(-25deg)}
+.bank-cimb{--card-bg:conic-gradient(from 45deg at 85% 60%,#e7252a,#a3136c,#0b879b,#e66a1c,#d30a22,#ef4750,#bf0527)}.bank-cimb .bank-art::after{border-width:30px;border-color:#f5bb7a55}
+.bank-bdo{--card-bg:linear-gradient(120deg,#05105b,#003bad 60%,#002273)}.bank-bdo .bank-brand{color:#fff1b0}.bank-bdo .bank-art::after{right:-15%;top:65%;border-width:30px;transform:rotate(-40deg);border-color:#3975dc70}
+.bank-landbank{--card-bg:linear-gradient(125deg,#0a3520,#0a291a 60%,#385c16)}.bank-landbank .bank-brand{font-size:clamp(13px,7cqw,22px);letter-spacing:.2px}.bank-landbank .bank-art::after{background:linear-gradient(#a3cb0a,#548c1d);border:0;top:60%;right:-15%;border-radius:100% 0;transform:rotate(-35deg)}
+.bank-wise{--card-bg:linear-gradient(120deg,#d4f963,#b3e346 60%,#8cba29);--card-ink:#1e3113}.bank-wise .bank-brand{font-style:italic;font-size:clamp(20px,12cqw,32px)}.bank-wise .bank-art::after{content:"↯";border:0;border-radius:0;color:#67872333;font-size:220px;font-weight:900;top:-20%;right:-5%;line-height:1;transform:none}
+.bank-rcbc{--card-bg:linear-gradient(115deg,#795b25,#c3a353 50%,#8b6a2f)}.bank-rcbc .bank-art::after{border-radius:0;border:1px solid #fff4c540;right:10%;top:25%;width:45%;height:100%;transform:skewY(-30deg);background:#ffffff08}
+.card-transaction-button{width:100%;font-size:12px;min-height:40px;color:#c4dfab;margin-top:8px;border:1px solid #4e633a;border-radius:20px}#card-error{font-size:12px;color:#ffa79a}#card-error:empty{display:none}
+.wallet-layout-list .bank-card{aspect-ratio:auto;min-height:105px;display:grid;grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr);gap:12px;align-items:center;container-type:normal}
+.wallet-layout-list .bank-card-header{align-items:center}.wallet-layout-list .bank-brand{font-size:22px}.wallet-layout-list .bank-options{margin-left:auto}.wallet-layout-list .bank-card-bottom{display:flex}.wallet-layout-list .bank-balance h2{text-align:left;font-size:20px;grid-column:auto}.wallet-layout-list .bank-balance small{font-size:9px}.wallet-layout-list .bank-wallet-name{font-size:11px}.wallet-layout-list .bank-network{font-size:22px}
+.wallet-layout-stack .bank-card{min-height:0;width:min(100%,380px)}.wallet-layout-stack .bank-card+.bank-card{margin-top:-65px}
+@media(max-width:1150px){.wallets-page .wallet-layout-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.wallets-page .wallet-layout-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.wallets-page .wallet-layout-grid{grid-template-columns:minmax(0,1fr)}.bank-card{max-width:420px;width:100%;justify-self:center}.wallet-layout-list .bank-card{grid-template-columns:minmax(0,1fr) 30px;gap:12px;min-height:160px}.wallet-layout-list .bank-card-bottom{grid-column:1/-1}.wallet-layout-list .bank-balance h2{font-size:22px}.wallet-layout-list .bank-brand{font-size:24px}}
+@media(pointer:coarse){.bank-options{min-width:36px;width:36px;height:36px;font-size:11px}}
+
+@media(max-width:540px){
+ .wallets-page .wallet-layout-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .wallets-page .wallet-layout-grid .bank-card{width:100%;max-width:none;min-height:124px;aspect-ratio:1.59;padding:10px 9px;border-radius:10px}
+ .wallet-layout-grid .bank-brand{font-size:clamp(14px,9cqw,20px);letter-spacing:-.5px}
+ .wallet-layout-grid .bank-chip{width:24px;height:19px}
+ .wallet-layout-grid .bank-options{width:24px;height:24px;min-width:24px;font-size:8px}
+ .wallet-layout-grid .bank-balance h2{font-size:clamp(12px,7cqw,17px)}
+ .wallet-layout-grid .bank-balance small{font-size:7px}
+ .wallet-layout-grid .bank-wallet-name{font-size:8px;margin-top:3px}
+ .wallet-layout-grid .bank-network{font-size:17px}
+ .wallet-layout-grid .network-folio{font-size:12px}
+ .wallet-layout-grid .network-mastercard{width:28px;height:18px}
+ .wallet-layout-grid .network-mastercard i{width:18px;height:18px}.wallet-layout-grid .network-mastercard i+i{left:10px}
+ .wallet-layout-stack .bank-card{width:min(100%,280px)}
+}
+@media(max-width:380px){
+ .wallets-page .wallet-layout-grid{grid-template-columns:minmax(0,1fr)}
+ .wallets-page .wallet-layout-grid .bank-card{max-width:260px;justify-self:start;min-height:0}
+}
+
+/* Size columns from available content width, including a collapsed sidebar. */
+.wallets-page .wallet-layout-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,max(160px,calc((100% - 30px)/4))),1fr));gap:10px}
+.wallets-page .wallet-layout-grid .bank-card{width:100%;min-width:0;min-height:132px;max-width:none;aspect-ratio:1.59}
+.bank-card .bank-brand{min-width:0;overflow-wrap:anywhere;line-height:1.1}
+.bank-card .bank-options{flex-shrink:0}
+.bank-card-header{gap:5px}
+.bank-card .bank-balance h2{font-size:clamp(12px,6.8cqw,20px)}
+.bank-card .bank-network{max-width:30%}
+@media(max-width:540px){
+ .wallets-page .wallet-layout-grid{gap:8px;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr))}
+ .wallets-page .wallet-layout-grid .bank-card{max-width:260px;justify-self:start;min-height:132px}
+ .wallet-layout-grid .bank-brand{font-size:clamp(13px,8cqw,20px)}
+ .wallet-layout-grid .bank-options{width:28px;min-width:28px;height:28px}
+ .wallet-layout-stack .bank-card{max-width:280px;min-height:145px}
+ .wallet-layout-list .bank-card{max-width:none;width:100%;container-type:normal}
+}
+@media(max-height:500px){dialog{max-height:calc(100dvh - 20px);margin-top:auto;margin-bottom:auto}}
+
+/* Compact mobile cards, including when only one wallet has been added. */
+@media(max-width:540px){
+ .wallets-page .wallet-layout-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,140px),1fr));gap:8px}
+ .wallets-page .wallet-layout-grid .bank-card{width:100%;max-width:200px;min-height:110px;aspect-ratio:1.59;padding:9px;border-radius:10px}
+ .wallet-layout-grid .bank-brand{font-size:clamp(13px,8cqw,17px)}
+ .wallet-layout-grid .bank-chip{width:22px;height:17px}
+ .wallet-layout-grid .bank-balance h2{font-size:clamp(12px,6.8cqw,15px)}
+ .wallet-layout-grid .bank-network{font-size:15px}
+ .wallet-layout-grid .bank-options{width:24px;height:24px;min-width:24px;font-size:8px}
+ .wallet-layout-stack .bank-card{width:min(100%,220px);min-height:125px}
+}
+
+/* Restrained printed-card finish and consistent typography. */
+.wallet-card.bank-card{border-color:#ffffff20;box-shadow:0 2px 5px #0002,inset 0 1px 0 #ffffff12;background-clip:padding-box}
+.bank-card .bank-brand{font-weight:650;letter-spacing:-.45px;text-shadow:0 1px 1px #0000000d}
+.bank-card .bank-balance h2{font-weight:650;letter-spacing:-.15px;font-variant-numeric:tabular-nums}
+.bank-balance small{font-weight:500;letter-spacing:.8px;opacity:.82}
+.bank-wallet-name{font-weight:400;letter-spacing:.15px;opacity:.84}
+.bank-options{background:#15202780;border:1px solid #ffffff0d;color:#ffffffe0;backdrop-filter:blur(4px)}
+.bank-options:hover{background:#152027b3}
+.bank-chip{border-color:#85794c;background:linear-gradient(125deg,#e5dcb7 0%,#ccbd87 40%,#e9dfb8 64%,#bbaa71 100%);box-shadow:inset 0 1px 1px #fff8,0 1px 1px #0002;border-radius:4px}
+.bank-chip::before{inset:5px 0;border-color:#8a805a80}
+.bank-chip::after{inset:0 7px;border-color:#8a805a99;border-radius:4px}
+.bank-chip i{position:absolute;left:8px;right:8px;top:7px;bottom:7px;border:1px solid #8a805a90;border-radius:2px}
+.bank-art::before{opacity:.45;background:linear-gradient(125deg,#ffffff0a,transparent 50%,#00000007)}
+.bank-art::after{border-color:#ffffff0b}
+.bank-gcash{--card-bg:linear-gradient(125deg,#0753d4,#075ee9 55%,#0544b7)}
+.bank-gcash .bank-art::after{border-width:18px;border-color:#87b2ff13;box-shadow:0 0 0 16px #93bcff0a,inset 0 0 0 16px #93bcff08}
+.bank-maribank{--card-bg:linear-gradient(120deg,#f66a08,#fb7909 65%,#f16c08)}
+.bank-maribank .bank-art::after{background:#ffd07c24;top:72%;height:80%;right:-32%}
+.bank-bpi{--card-bg:linear-gradient(125deg,#870d1b,#ae1227 65%,#880d20)}
+.bank-maya{--card-bg:linear-gradient(125deg,#96204e,#b6205b 70%,#971646)}
+.bank-maya .bank-art::after{content:"";width:100%;height:150%;border:18px solid #f6c4d80e;border-radius:50%;right:-45%;top:35%;transform:rotate(-25deg)}
+.bank-atome{--card-bg:linear-gradient(125deg,#f6e8bb,#f2d4db 35%,#d3cbea 65%,#b7dedc)}
+.bank-atome .bank-art::after{content:"";width:85%;height:140%;border:1px solid #ffffff80;border-radius:45%;right:-20%;top:20%;transform:rotate(35deg);background:linear-gradient(150deg,#ffffff22,transparent);text-shadow:none}
+.bank-salmon{--card-bg:linear-gradient(125deg,#e9acd0,#efc0b9 40%,#c8d6b1 72%,#a0d6d5)}
+.bank-cimb{--card-bg:linear-gradient(115deg,#a70f2f,#c9223e 70%,#a91535)}
+.bank-cimb .bank-art::after{border-color:#f5b4aa18;border-width:26px;transform:rotate(-35deg)}
+.bank-wise{--card-bg:linear-gradient(125deg,#c0e970,#b6df62 65%,#a4ca51)}
+.bank-wise .bank-art::after{content:"";width:80%;height:170%;border:0;border-radius:0;top:-30%;right:-25%;transform:rotate(32deg);background:#426e1710}
+.bank-rcbc{--card-bg:linear-gradient(120deg,#987c42,#b89a58 55%,#937840)}
+.network-mastercard i{background:#e9232c}.network-mastercard i+i{background:#f5a315;opacity:.95;mix-blend-mode:normal}
+.bank-card .network-visa{font-weight:750;letter-spacing:-.6px}
+.bank-card .network-folio{font-weight:600;letter-spacing:-.4px;opacity:.62}
+@media(prefers-reduced-transparency:reduce){.bank-options{backdrop-filter:none;background:#18231f}}
+
+/* Anchor the chip just above the balance rather than in the card's center. */
+.bank-card.plain-card>.bank-chip{position:absolute;left:12px;bottom:calc(11px + 3.5em);margin:0}
+@media(max-width:540px){.wallet-layout-grid .bank-card.plain-card>.bank-chip{left:9px;bottom:calc(9px + 3em)}}
+.wallet-layout-list .bank-card.plain-card{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto;gap:10px;min-height:154px;align-items:start}
+.wallet-layout-list .bank-card.plain-card>.bank-card-header{grid-column:1;grid-row:1;align-items:center}
+.wallet-layout-list .bank-card.plain-card>.bank-chip{position:relative;left:auto;bottom:auto;margin:0;grid-column:1;grid-row:2;align-self:end}
+.wallet-layout-list .bank-card.plain-card>.bank-card-bottom{grid-column:1;grid-row:3;width:100%;align-self:end}

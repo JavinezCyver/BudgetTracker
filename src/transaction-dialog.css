@@ -1,0 +1,26 @@
+/* Compact transaction entry, including short screens and on-screen keyboards. */
+dialog:has(#entry-form [name="date"]){
+ width:min(360px,calc(100% - 24px));padding:18px;border-radius:15px;
+ max-height:calc(var(--app-viewport-height,100dvh) - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));
+ position:fixed;top:calc(var(--app-viewport-top,0px) + var(--app-viewport-height,100dvh)/2);bottom:auto;margin:0 auto;transform:translateY(-50%);
+ overflow-y:auto;overscroll-behavior:contain;
+}
+dialog:has(#entry-form [name="date"]) .section-head{gap:10px}
+dialog:has(#entry-form [name="date"]) .section-head h3{font-size:15px;font-weight:600;line-height:1.4}
+dialog:has(#entry-form [name="date"]) .close-button{width:32px;height:32px;min-width:32px;min-height:32px;font-size:22px;padding:0}
+dialog:has(#entry-form [name="date"]) .modal-subtitle{font-size:10px;line-height:1.5;margin:6px 0 13px}
+dialog:has(#entry-form [name="date"]) .form-row+.modal-subtitle{font-size:10px;line-height:1.5;margin:0 0 12px;color:var(--theme-a0b28e,#a0b28e)}
+dialog:has(#entry-form [name="date"]) form label{font-size:11px;line-height:1.4;gap:5px;margin-bottom:11px}
+dialog:has(#entry-form [name="date"]) .form-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+dialog:has(#entry-form [name="date"]) input:not(.date-native):not(.select-native){min-height:40px;padding:8px 10px;font-size:15px;border-radius:7px}
+dialog:has(#entry-form [name="date"]) .select-trigger,dialog:has(#entry-form [name="date"]) .date-trigger{min-height:40px;padding:8px 9px;font-size:13px;gap:5px}
+dialog:has(#entry-form [name="date"]) .select-trigger svg,dialog:has(#entry-form [name="date"]) .date-trigger svg{width:15px;height:15px}
+dialog:has(#entry-form [name="date"]) .submit{font-size:12px;font-weight:600;min-height:40px;padding:10px 13px;margin-top:5px;border-radius:10px}
+dialog:has(#entry-form [name="date"]) #form-error{font-size:11px;line-height:1.5;margin:5px 0 10px}
+dialog:has(#entry-form [name="date"]) #form-error:empty{display:none}
+@media(max-width:540px){
+ dialog:has(#entry-form [name="date"]){padding:16px;width:min(350px,calc(100% - 20px));border-radius:13px}
+ dialog:has(#entry-form [name="date"]) input:not(.date-native):not(.select-native){font-size:16px}
+}
+@media(max-width:340px){dialog:has(#entry-form [name="date"]) .form-row{grid-template-columns:minmax(0,1fr);gap:0}}
+@media(pointer:coarse){dialog:has(#entry-form [name="date"]) .select-trigger,dialog:has(#entry-form [name="date"]) .date-trigger,dialog:has(#entry-form [name="date"]) .submit,dialog:has(#entry-form [name="date"]) input:not(.date-native):not(.select-native){min-height:44px}}

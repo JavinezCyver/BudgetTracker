@@ -1,0 +1,20 @@
+.settings-mode-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;margin-bottom:14px;border-bottom:1px solid var(--theme-414a35,#414a35)}.settings-mode-row strong{font-size:12px;font-weight:500;color:var(--theme-e6eddf,#e6eddf)}.settings-mode-row p{font-size:11px;margin:5px 0 0;color:var(--theme-afc09f,#afc09f)}.settings-mode-toggle{display:flex;align-items:center;flex-shrink:0;min-width:52px;min-height:44px;padding:0 4px;border-radius:12px;background:transparent}.settings-mode-track{width:44px;height:26px;display:flex;align-items:center;padding:3px;border-radius:20px;background:#a0a6ae}.settings-mode-track::before{content:'';width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0003}.settings-mode-toggle[aria-checked=true] .settings-mode-track{background:var(--summary-end,#74a24f)}.settings-mode-toggle[aria-checked=true] .settings-mode-track::before{transform:translateX(18px)}.settings-mode-toggle:focus-visible{outline:2px solid var(--summary-end,#74a24f);outline-offset:2px}
+html[data-display-mode=light]{background:#f4f5f7;color:#26313c}
+html[data-display-mode=light] body,html[data-display-mode=light] .main-shell:has(.wallets-page){background:#f4f5f7;color:#26313c}
+html[data-display-mode=light] .sidebar{background:#fff;border-color:#dce0e5}
+html[data-display-mode=light] :is(.panel,.settings-updates,.calendar-board,.calendar-agenda,dialog){background:#fff}
+html[data-display-mode=light] :is(.sidebar .brand,.wallet-page-header h1,.dashboard-heading h1,.settings-heading h1,.calendar-board h2,.calendar-agenda h3){color:#26313c}
+html[data-display-mode=light] :is(.settings-appearance-description,#appearance-status){color:#576576}
+html[data-display-mode=light] :is(.settings-color-option,.select-trigger,.date-trigger,form input,form select,.history-search){background:#f9fafb;color:#26313c}
+html[data-display-mode=light] :is(.select-menu,.date-picker,.summary-popover,.wallet-filter-menu){background:#fff;color:#26313c}
+html[data-display-mode=light] :is(input,select,textarea){color-scheme:light}
+html[data-display-mode=light] :is(.select-value,.history-search input){color:#26313c}
+html[data-display-mode=light] :is(.history-combined-summary,.net-summary,.settings-color-preview){color:#fff}
+html[data-display-mode=light] :is(.history-combined-summary,.net-summary) :is(h2,dt,dd,.net-summary-value,.income-summary-add,.net-summary-actions>button,.summary-menu>summary){color:#fff}
+html[data-display-mode=light] .donut>div{background:#fff}
+html[data-display-mode=light] .settings-app-mark{background:var(--summary-start);color:#fff}
+html[data-display-mode=light] :is(.goal-delete,.goal-delete-confirm,#confirm-delete-wallet){color:#7b2828}
+html[data-display-mode=light] :is(#form-error,#loan-error,#goal-error,#investment-error,#budget-plan-error){color:#9c342a}
+html[data-display-mode=light] .settings-color-option[aria-pressed=true]{color:#fff;background:var(--summary-start);border-color:var(--summary-end);box-shadow:inset 0 0 0 1px var(--summary-end)}
+html[data-display-mode=light] :is(.history-type-tabs button[aria-pressed=true],.sidebar .nav-item.active){color:var(--summary-start)}
+@media(prefers-reduced-motion:no-preference){.settings-mode-track::before{transition:transform .15s ease}}

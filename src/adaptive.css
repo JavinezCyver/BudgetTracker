@@ -1,0 +1,96 @@
+/* Final device adaptations preserve the selected compact card size. */
+html{scrollbar-gutter:stable;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,a,input,select,summary{touch-action:manipulation}
+.sidebar{touch-action:pan-y}.full-wallets .bank-card{touch-action:pan-y pinch-zoom}
+.main-shell,main,dialog,.bank-card{min-width:0}
+dialog{scroll-padding:16px;scrollbar-width:thin;scrollbar-color:var(--theme-64794b,#64794b) transparent}
+dialog input,dialog .select-trigger{scroll-margin:16px}
+.bank-options{backdrop-filter:none}
+.wallet-view-controls button,.wallet-filter>summary,.select-trigger,.bank-options{transition:background-color .14s ease,color .14s ease,border-color .14s ease}
+.wallet-filter-menu{max-width:calc(100vw - 24px)}
+.calendar-grid{width:100%}.day{overflow:hidden}.day small{max-width:100%;overflow-wrap:anywhere}
+.bank-card.vector-card .bank-brand{visibility:hidden;overflow:hidden;white-space:nowrap}
+.bank-card.plain-card .bank-brand{overflow-wrap:anywhere}
+.wallet-layout-list .bank-card.plain-card,.wallet-layout-list .bank-card.vector-card{width:100%;max-width:340px;min-height:0;aspect-ratio:1.59}
+.wallet-layout-list .bank-card.plain-card{container-type:inline-size;padding:clamp(9px,5cqw,16px);gap:clamp(4px,2cqw,9px)}
+.wallet-layout-list .plain-card .bank-brand{font-size:clamp(15px,8cqw,24px)}
+.wallet-layout-list .plain-card .bank-balance h2{font-size:clamp(12px,6cqw,20px)}
+.wallet-layout-list .plain-card .bank-balance small{font-size:clamp(7px,3.4cqw,9px)}
+.wallet-layout-list .plain-card .bank-wallet-name{font-size:clamp(8px,3.7cqw,11px)}
+.wallet-layout-list .plain-card .bank-network{font-size:clamp(14px,8cqw,22px)}
+@media(max-width:600px){
+ .net-summary-top{gap:4px}.net-summary-actions{flex-shrink:0}
+ .wallet-toolbar{align-items:center;row-gap:8px}.wallet-toolbar>p{flex:1 1 100px}
+ .wallet-view-controls{max-width:100%}
+ .topbar .breadcrumb{min-width:0}.topbar-right{margin-left:auto}
+ .transactions .table-scroll{border-radius:5px}
+ .select-menu{max-width:calc(100vw - 20px)}
+ dialog{max-height:calc(100dvh - 24px);max-height:calc(100svh - 24px)}
+}
+@media(max-width:340px){
+ .wallets-page .net-summary-totals{grid-template-columns:minmax(0,1fr)}
+ .wallets-page .net-summary-top{flex-wrap:wrap}.wallets-page .net-summary-actions{margin-left:auto}
+ .wallet-view-controls button,.wallet-filter>summary{width:36px}
+ .calendar-controls{flex-wrap:wrap}.calendar-controls button{padding:6px 9px}
+}
+@media(max-height:480px) and (orientation:landscape){
+ .sidebar{padding-top:8px}.sidebar .brand{margin-bottom:4px}.sidebar-account{margin-bottom:8px}
+ main{padding-top:12px}.wallet-page-header{margin-bottom:8px}
+ dialog{max-height:calc(100dvh - 16px);margin-block:auto}
+}
+@media(pointer:coarse){
+ .bank-options{position:relative}
+ .bank-options::after{content:"";position:absolute;inset:-9px;border-radius:50%}
+ .bank-card-header{z-index:4}
+ .select-option{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Use the same 38×29 chip and 20,66 position as MariBank's 280×176 artwork. */
+.bank-gcash.plain-card>.bank-chip,
+.wallet-layout-grid .bank-gcash.plain-card>.bank-chip,
+.wallet-layout-list .bank-gcash.plain-card>.bank-chip{
+ position:absolute;left:7.142857%;top:37.5%;bottom:auto;width:13.571429%;height:16.477273%;margin:0;
+ background:linear-gradient(135deg,var(--theme-f0f1e9,#f0f1e9),#b8bdbd 45%,var(--theme-e7e8e0,#e7e8e0) 70%,#a3abad);
+ border-color:#777e83;border-radius:5px;box-shadow:inset 0 1px 1px #ffffff80;
+}
+.bank-gcash.plain-card>.bank-chip::before,.bank-gcash.plain-card>.bank-chip::after{border-color:#92989b}
+.bank-gcash.plain-card>.bank-chip i{border-color:#92989b}
+.wallet-layout-list .bank-gcash.plain-card{grid-template-rows:auto 1fr auto;row-gap:10px}
+.bank-card>.bank-chip.silver-chip{background:none;border:0;box-shadow:none;border-radius:0;overflow:visible}
+.bank-card>.bank-chip.silver-chip::before,.bank-card>.bank-chip.silver-chip::after{display:none}
+.silver-chip>svg{display:block;width:100%;height:100%}
+.bank-wallet-name{text-transform:uppercase}
+.storage-error{padding:13px 15px;margin-bottom:16px;border:1px solid #9a7447;border-radius:10px;background:#493a25;color:#ffdfae;font-size:12px;line-height:1.6}
+.assignment-notice{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 15px;margin-bottom:16px;background:var(--theme-303b27,#303b27);border:1px solid var(--theme-5a7041,#5a7041);border-radius:10px}
+.assignment-notice p{font-size:12px;line-height:1.6;margin:0;color:var(--theme-cbdcba,#cbdcba);flex:1 1 180px}.assignment-notice button{min-height:40px;padding:8px 12px;border-radius:8px;background:var(--theme-536e35,#536e35);color:var(--theme-eef9df,#eef9df);font-size:12px;white-space:nowrap}
+#assignment-error{font-size:12px;color:#ffa79a}
+.manage-wallets{max-height:320px;overflow-y:auto;scrollbar-width:thin}.manage-wallets>div>span{min-width:0;overflow-wrap:anywhere}.manage-wallets strong{font-size:12px;font-weight:500}.manage-wallets small{display:block;font-size:10px;color:var(--theme-a5b595,#a5b595);margin-top:5px}
+.delete-wallet-summary{padding:14px;border-radius:10px;background:var(--theme-303c28,#303c28);border:1px solid var(--theme-465a33,#465a33);margin:18px 0 12px}.delete-wallet-summary strong{display:block;font-size:15px;color:var(--theme-e6efdd,#e6efdd);overflow-wrap:anywhere}.delete-wallet-summary span{display:block;font-size:11px;color:var(--theme-aabc98,#aabc98);margin-top:6px}
+.delete-wallet-description{font-size:12px;color:var(--theme-b8c6aa,#b8c6aa);line-height:1.7;margin-bottom:20px}.delete-wallet-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.delete-wallet-actions button{min-height:42px;border:1px solid var(--theme-4a5a3c,#4a5a3c);border-radius:9px;font-size:12px;color:var(--theme-d7e4ca,#d7e4ca);background:var(--theme-2c3625,#2c3625)}.delete-wallet-actions #confirm-delete-wallet{background:#71392d;border-color:#9d5844;color:#ffe8df}.delete-wallet-actions #confirm-delete-wallet:hover{background:#854332}
+.sidebar>*{flex-shrink:0}
+.sidebar-extra{margin-top:20px}
+.sidebar .sidebar-extra .nav-label{font-size:9px;font-weight:600;margin-bottom:7px}
+.sidebar .sidebar-extra .nav-item{min-height:34px;font-size:11px;padding-block:8px}
+.sidebar .nav-placeholder{cursor:default}
+.sidebar .sidebar-extra:last-of-type{margin-bottom:20px}
+.sidebar-collapsed .sidebar .sidebar-extra nav{margin-top:0}
+@media(max-width:760px){.sidebar-extra{margin-top:14px;padding-top:10px;border-top:1px solid var(--theme-353c2e,#353c2e)}.sidebar .sidebar-extra .nav-item{min-height:44px;padding-block:12px}}
+.sidebar-collapsed .sidebar-extra{padding-top:10px;border-top:1px solid var(--theme-353c2e,#353c2e)}
+
+/* Keep the chip in normal layout so it cannot overlap a wrapping balance. */
+.bank-gcash.plain-card,
+.wallet-layout-list .bank-gcash.plain-card{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(26px,1fr) auto;gap:4px;align-items:stretch}
+.bank-gcash.plain-card>.bank-card-header{grid-column:1;grid-row:1}
+.bank-gcash.plain-card>.bank-chip,
+.wallet-layout-grid .bank-gcash.plain-card>.bank-chip,
+.wallet-layout-list .bank-gcash.plain-card>.bank-chip{position:static;grid-column:1;grid-row:2;align-self:end;left:auto;top:auto;bottom:auto;width:13.571429%;height:auto;min-width:24px;aspect-ratio:38/29;margin:0 0 8px}
+.bank-gcash.plain-card>.bank-card-bottom,
+.wallet-layout-list .bank-gcash.plain-card>.bank-card-bottom{grid-column:1;grid-row:3;align-self:end}
+@media(max-width:600px){
+ .wallet-toolbar .wallet-view-controls{padding:2px;border-radius:18px}
+ .wallet-toolbar .wallet-view-controls [data-wallet-view],.wallet-toolbar .wallet-filter>summary{width:30px;height:32px;min-width:30px;min-height:32px}
+ .wallet-toolbar .wallet-view-controls .icon{width:13px;height:13px}
+}
+/* Navigation identifies the page without a second title/date header. */
+body main>.page-heading,body main>.date-line,body main>.dashboard-heading,body main>.wallet-page-header,body .settings-heading{display:none}

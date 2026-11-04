@@ -1,0 +1,23 @@
+/* Resolution-independent provider artwork with live balances on top. */
+.bank-card.vector-card .bank-art{z-index:0;background:none}
+.bank-card.vector-card .bank-art>svg{display:block;width:100%;height:100%;overflow:hidden}
+.vector-card .bank-art::before,.vector-card .bank-art::after{display:none}
+.vector-card .bank-brand,.vector-card .bank-chip{visibility:hidden}
+.vector-card .bank-card-header{position:absolute;left:6%;right:4%;top:6%;z-index:3}
+.vector-card .bank-options{margin-left:auto;background:#05274fd9;border:0;backdrop-filter:none;width:clamp(20px,10cqw,28px);min-width:0;height:clamp(20px,10cqw,28px);font-size:clamp(7px,4cqw,10px)}
+.vector-card .bank-card-bottom{position:absolute;left:6%;right:5%;bottom:6%;padding:0;background:none;align-items:flex-end;gap:7px}
+.vector-card .bank-balance small{font-size:clamp(7px,3.4cqw,9px);font-weight:600;line-height:1.2;letter-spacing:.35px;color:var(--card-ink,#fff);opacity:1}
+.vector-card .bank-balance h2{font-size:clamp(12px,6.8cqw,20px);font-weight:700;line-height:1.1;margin:2px 0 0;color:var(--card-ink,#fff);text-shadow:0 1px 1px #0001}
+.vector-card .bank-wallet-name{display:block;font-size:clamp(8px,4.2cqw,11px);line-height:1.25;margin-top:4px;font-weight:500;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.vector-card .bank-network{font-size:clamp(16px,10cqw,27px)}
+.vector-card .network-folio{font-size:clamp(10px,6cqw,18px)}
+.vector-card .network-mastercard{width:23cqw;max-width:46px;height:15cqw;max-height:30px}
+.vector-card .network-mastercard i{width:15cqw;height:15cqw;max-width:30px;max-height:30px}.vector-card .network-mastercard i+i{left:9cqw}
+.wallet-layout-list .vector-card{container-type:inline-size;aspect-ratio:1.59;min-height:132px;max-width:340px;display:flex}
+.wallet-layout-list .vector-card .bank-card-header{display:flex;align-items:flex-start}.wallet-layout-list .vector-card .bank-card-bottom{display:flex;grid-column:auto}
+.wallet-layout-list .vector-card .bank-balance h2{font-size:clamp(12px,6.8cqw,20px)}
+@media(max-width:540px){.wallets-page .wallet-layout-grid .vector-card{max-width:200px;min-height:110px}.wallet-layout-stack .vector-card{max-width:220px}}
+
+/* Give CSS and vector designs identical dimensions in list view. */
+.wallet-layout-list .bank-card.plain-card,.wallet-layout-list .bank-card.vector-card{width:100%;max-width:340px;min-height:0;aspect-ratio:1.59}
+

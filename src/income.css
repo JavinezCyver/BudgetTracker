@@ -1,0 +1,15 @@
+.income-history .history-type-tabs,.income-history .history-filters label:has(#history-category){display:none}
+.income-page .page-heading>div{display:none}
+.income-page .page-heading{display:none}
+.income-summary-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.income-summary-top .history-net{min-width:0;flex:1 1 110px}
+.income-summary-add{display:flex;align-items:center;justify-content:center;gap:5px;min-height:32px;padding:8px 11px;border-radius:9px;border:1px solid #ffffff30;background:#ffffff19;color:var(--theme-f1f9e9,#f1f9e9);font-size:11px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.income-summary-add svg{width:14px;height:14px}.income-summary-add:hover{background:#ffffff2b}
+@media(max-width:540px){.income-summary-add{font-size:10px;padding:7px 9px}}
+@media(pointer:coarse){.income-summary-add{min-height:40px}}
+.income-history .history-filters{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px}
+.income-history .history-combined-summary{background:linear-gradient(106deg,var(--theme-2f6518,#2f6518),var(--theme-4b7f30,#4b7f30) 47%,var(--theme-74a24f,#74a24f))}
+dialog .income-type-field,dialog .income-category-field{display:none!important}
+dialog:has(#entry-form [name="date"]) .form-row:has(.income-type-field),dialog:has(#entry-form [name="date"]) .form-row:has(.income-category-field){grid-template-columns:minmax(0,1fr)}
+@media(max-width:600px){.income-history .history-filters{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.income-history .history-filters label:last-child{grid-column:1/-1}}
+@media(max-width:380px){.income-history .history-filters{grid-template-columns:minmax(0,1fr)}}
