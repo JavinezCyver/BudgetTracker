@@ -62,5 +62,6 @@ test('Android preparation keeps both Gradle plugin classpaths compatible with th
   for(const relative of ['build.gradle.kts','buildSrc/build.gradle.kts'])assert.match(fs.readFileSync(path.join(root,relative),'utf8'),/com\.android\.tools\.build:gradle:9\.1\.0/);
   assert.match(fs.readFileSync(path.join(root,'gradle/wrapper/gradle-wrapper.properties'),'utf8'),/gradle-9\.3\.1-all\.zip/);
   assert.ok(fs.existsSync(path.join(root,'app/src/main/res/mipmap-mdpi/ic_launcher.png')));
+  assert.equal(fs.readFileSync(path.join(root,'app/src/main/java/com/folio/budget/MainActivity.kt'),'utf8'),fs.readFileSync('src-tauri/android/MainActivity.kt','utf8'));
  }finally{assert.equal(path.dirname(root),parent);fs.rmSync(root,{recursive:true});}
 });

@@ -35,6 +35,9 @@ export function prepareAndroid(root=path.resolve('src-tauri/gen/android')){
  }
  const wrapper=path.join(root,'gradle/wrapper/gradle-wrapper.properties');
  fs.writeFileSync(wrapper,fs.readFileSync(wrapper,'utf8').replace(/gradle-[\d.]+-(bin|all)\.zip/,'gradle-9.3.1-all.zip'));
+ const activity=path.join(root,'app/src/main/java/com/folio/budget/MainActivity.kt');
+ fs.mkdirSync(path.dirname(activity),{recursive:true});
+ fs.copyFileSync(path.resolve('src-tauri/android/MainActivity.kt'),activity);
  fs.cpSync(path.resolve('src-tauri/icons/android'),path.join(root,'app/src/main/res'),{recursive:true});
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
