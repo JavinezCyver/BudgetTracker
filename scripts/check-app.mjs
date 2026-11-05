@@ -31,6 +31,14 @@ if(width>760){
 }
 for(const page of ['Dashboard','Wallets','Calendar','Transactions','Income','Who Owes You','Goals','Investments','Budget plan','Settings']){doc.querySelector('[data-page="'+page+'"]').click();await pause();check(page);
 if(page==='Settings'){if(!doc.querySelector('#app-updates-title')||doc.querySelector('#add,#summary-add-wallet'))failures.push('Settings update section or actions incorrect');}
+if(page==='Transactions'||page==='Income')failures.push(...await checkHistoryDropdowns(doc,win,width,height));
+if(page==='Wallets'&&width===390&&height===844){
+ win.scrollTo(0,100000);
+ if(win.scrollY===0)failures.push('full wallet page does not scroll');
+ const lastCard=doc.querySelector('.full-wallets .bank-card:last-child'),navTop=doc.querySelector('.mobile-bottom-nav').getBoundingClientRect().top;
+ if(lastCard.getBoundingClientRect().bottom>navTop)failures.push('last wallet cannot scroll above navigation');
+ win.scrollTo(0,0);
+}
 if(page==='Wallets'){for(const layout of ['grid','list','stack']){const before=doc.querySelector('.bank-card');doc.querySelector('[data-wallet-view="'+layout+'"]').click();await pause();if(doc.querySelector('.bank-card')!==before)failures.push('layout rebuilt cards');check('Wallets '+layout);const bounds=[];for(const card of doc.querySelectorAll('.bank-card')){const rect=card.getBoundingClientRect();if(card.classList.contains('vector-card')){const art=card.querySelector('.bank-art svg');if(!art||art.getBoundingClientRect().width===0)failures.push('missing vector artwork');if(card.classList.contains('bank-maribank')&&!art?.textContent.includes('MariBank'))failures.push('MariBank logo missing');}if(card.classList.contains('bank-gcash')){const chip=card.querySelector('.bank-chip').getBoundingClientRect(),balance=card.querySelector('.bank-balance').getBoundingClientRect();if(balance.top-chip.bottom<6)failures.push(layout+': chip overlaps balance');}const name=card.querySelector('.bank-wallet-name');if(!name||win.getComputedStyle(name).display==='none'||name.getBoundingClientRect().height===0)failures.push(layout+': wallet name hidden');if(rect.right>doc.documentElement.clientWidth+1)failures.push(layout+': card outside viewport');if(layout==='list')bounds.push(Math.round(rect.height));for(const selector of ['.bank-balance h2','.bank-options']){const element=card.querySelector(selector),r=element.getBoundingClientRect();if(r.right>rect.right+1||r.left<rect.left-1||r.bottom>rect.bottom+1)failures.push(layout+': '+selector+' clipped');}}if(layout==='list'&&Math.max(...bounds)-Math.min(...bounds)>1)failures.push('unequal list card heights');}
 doc.querySelector('#add,#summary-add-wallet').click();await pause();const modal=doc.querySelector('dialog'),rect=modal.getBoundingClientRect();if(rect.left<0||rect.right>doc.documentElement.clientWidth+1||rect.top<0||rect.bottom>height+1)failures.push('dialog outside viewport');const trigger=modal.querySelector('.select-trigger');if(!trigger)failures.push('custom select missing');else{trigger.click();await pause();const menu=modal.querySelector('.select-menu'),r=menu.getBoundingClientRect();if(r.left<0||r.right>width||r.top<0||r.bottom>height)failures.push('dropdown outside viewport');menu.children[[...modal.querySelector('select').options].findIndex(option=>option.value==='gcash')].click();if(new win.FormData(modal.querySelector('form')).get('provider')!=='gcash')failures.push('dropdown value not saved');}modal.close();await pause();failures.push(...await checkTransactionDatePicker(doc,win,width,height));}
 }
@@ -53,12 +61,9 @@ if(!modal.querySelector('#loan-form'))failures.push(page+': wrong form');
 if(rect.left<0||rect.right>width+1||rect.top<0||rect.bottom>height+1||modal.scrollWidth>modal.clientWidth+1)failures.push(page+': form outside viewport');
 modal.close();await pause();}
 
-doc.querySelector('[data-page="Settings"]').click();const mode=doc.querySelector('[data-toggle-mode]');
-if(mode.getAttribute('aria-checked')==='true')mode.click();await pause();
-if(doc.documentElement.dataset.displayMode!=='light')failures.push('light mode not applied');
-for(const page of ['Dashboard','Wallets','Calendar','Transactions','Income','Who Owes You','Goals','Investments','Budget plan','Settings']){doc.querySelector('[data-page="'+page+'"]').click();await pause();check('Light '+page);}
-if(win.getComputedStyle(doc.body).backgroundColor!=='rgb(244, 245, 247)')failures.push('light background not applied');
-doc.querySelector('[data-toggle-mode]').click();await pause();if(doc.documentElement.dataset.displayMode!=='dark')failures.push('dark mode not restored');
+doc.querySelector('[data-page="Settings"]').click();
+if(doc.querySelector('[data-toggle-mode]'))failures.push('display mode switch still visible');
+if(doc.documentElement.dataset.displayMode!=='dark')failures.push('dark mode not applied');
 
 const bottom=doc.querySelector('.mobile-bottom-nav');
 if(width<=760){

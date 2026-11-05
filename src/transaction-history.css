@@ -38,6 +38,10 @@
 @media(max-width:380px){.history-row{grid-template-columns:23px minmax(0,1fr);gap:4px 6px}}
 
 .history-totals{display:block}
+@media(max-width:760px){
+ .history-filters .select-trigger{min-height:40px;padding:6px 8px}
+ .history-filters .select-option{font-size:11px;padding:7px 26px 7px 8px}
+}
 .history-totals{margin-bottom:16px}
 .history-combined-summary{padding:16px 16px 10px;border-radius:20px;border:1px solid var(--theme-4b7835,#4b7835);background:linear-gradient(106deg,var(--theme-2f6518,#2f6518),var(--theme-4b7f30,#4b7f30) 47%,var(--theme-74a24f,#74a24f));color:var(--theme-f4faed,#f4faed);min-width:0}
 .history-net h2{font-size:8px;line-height:1.4;font-weight:700;letter-spacing:.65px;margin:0 0 5px;color:var(--theme-edf6e4,#edf6e4)}

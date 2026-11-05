@@ -11,12 +11,20 @@ test('Android release signing uses a private external key and preserves debug co
  const configured=androidAppGradle(source);
  assert.ok(configured.includes('compileSdk = 36'));
  assert.ok(configured.includes('targetSdk = 36'));
- assert.ok(configured.includes('isMinifyEnabled = true'));
+ assert.ok(configured.includes('isMinifyEnabled = false'));
  assert.ok(configured.includes('System.getenv("POCKETPLAN_ANDROID_KEYSTORE")'));
  assert.ok(configured.includes('signingConfig = it'));
  assert.ok(configured.includes('getByName("debug") { isDebuggable = true }'));
  assert.equal(androidAppGradle(configured),configured);
  assert.throws(()=>androidAppGradle('unexpected template'));
+});
+
+test('Android release preparation disables minification in existing signed projects too',()=>{
+ const source='android {\n    // POCKETPLAN_ANDROID_KEYSTORE\n    buildTypes {\n getByName("release") { isMinifyEnabled = true }\n }\n}';
+ const configured=androidAppGradle(source);
+ assert.ok(configured.includes('isMinifyEnabled = false'));
+ assert.ok(!configured.includes('isMinifyEnabled = true'));
+ assert.equal(androidAppGradle(configured),configured);
 });
 
 test('Android packaging refuses unsigned, ambiguous or unverifiable APKs without publishing artifacts',()=>{

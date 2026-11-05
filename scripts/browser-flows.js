@@ -1,4 +1,22 @@
 // Runs inside the isolated browser profile used by check-app.mjs.
+async function checkHistoryDropdowns(doc,win,width,height){
+ const failures=[];
+ for(const select of doc.querySelectorAll('.history-filters select')){
+  const wrapper=select.closest('.custom-select'),trigger=wrapper.querySelector('.select-trigger'),menu=wrapper.querySelector('.select-menu');
+  if(!trigger.getClientRects().length)continue;
+  trigger.scrollIntoView({block:'center'});trigger.click();menu.style.animation='none';
+  await new Promise(resolve=>setTimeout(resolve,40));
+  const button=trigger.getBoundingClientRect(),popup=menu.getBoundingClientRect();
+  if(Math.min(Math.abs(popup.top-button.bottom-5),Math.abs(button.top-popup.bottom-5))>2)failures.push(select.id+': dropdown detached from trigger');
+  const expectedWidth=Math.min(Math.max(button.width,150),width-20),expectedLeft=Math.max(10,Math.min(button.left,width-expectedWidth-10));
+  if(Math.abs(popup.left-expectedLeft)>2||Math.abs(popup.width-expectedWidth)>2)failures.push(select.id+': dropdown horizontal alignment incorrect');
+  if(popup.left<0||popup.right>width+1||popup.top<0||popup.bottom>height+1)failures.push(select.id+': dropdown outside viewport');
+  doc.dispatchEvent(new win.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+  if(menu.matches(':popover-open'))failures.push(select.id+': Escape did not close dropdown');
+ }
+ win.scrollTo(0,0);return failures;
+}
+
 async function checkTransactionDatePicker(doc,win,width,height){
  const failures=[],pause=()=>new Promise(resolve=>setTimeout(resolve,20));
  doc.querySelector('.bank-options').click();doc.querySelector('#card-add-transaction').click();await pause();
@@ -38,7 +56,12 @@ async function checkFlows(seed){
  const saved=()=>JSON.parse(localStorage.getItem('folio-data'));
  const set=(name,value)=>{const input=doc.querySelector(`#entry-form [name="${name}"]`);input.value=value;input.dispatchEvent(new frame.contentWindow.Event('change',{bubbles:true}));};
  try{
-  await ready();doc.querySelector('[data-page="Wallets"]').click();doc.querySelector('#add,#summary-add-wallet').click();await wait(()=>doc.querySelector('.select-trigger'));
+  await ready();
+  for(const page of ['Dashboard','Wallets']){
+   doc.querySelector('[data-page="'+page+'"]').click();frame.contentWindow.scrollTo(0,10000);
+   if(frame.contentWindow.scrollY>0)failures.push(page+': short content scrolls into empty space');
+  }
+  doc.querySelector('#add,#summary-add-wallet').click();await wait(()=>doc.querySelector('.select-trigger'));
   set('name','   ');set('purpose','Emergency fund');set('provider','gcash');doc.querySelector('#entry-form').requestSubmit();await wait(()=>doc.querySelector('#form-error')?.textContent);
   if(saved().wallets.length!==2)failures.push('blank wallet was saved');
   set('name','Test GCash');set('provider','gcash');set('amount','0.30');doc.querySelector('#entry-form').requestSubmit();await wait(()=>saved().wallets.length===3);
@@ -234,12 +257,12 @@ async function checkFlows(seed){
   if(doc.querySelector('[data-summary-color="purple"]').getAttribute('aria-pressed')!=='true'||!frame.contentWindow.getComputedStyle(doc.querySelector('.settings-color-preview')).backgroundImage.includes('73, 40, 101'))failures.push('selected color not restored after reload');
   if(JSON.stringify(saved().wallets)!==beforeColor||JSON.stringify(saved().transactions)!==beforeColorTransactions)failures.push('color selection altered financial data');
 
-  doc.querySelector('[data-page="Settings"]').click();doc.querySelector('[data-toggle-mode]').click();await wait(()=>saved().preferences.displayMode==='light');
-  if(saved().preferences.summaryColor!=='purple'||doc.querySelector('[data-toggle-mode]').getAttribute('aria-checked')!=='false')failures.push('mode toggle lost accent or switch state');
+  const legacyMode=saved();legacyMode.preferences.displayMode='light';localStorage.setItem('folio-data',JSON.stringify(legacyMode));
   const modeReload=new Promise(resolve=>frame.onload=resolve);frame.contentWindow.location.reload();await modeReload;await ready();doc.querySelector('[data-page="Settings"]').click();
-  if(doc.documentElement.dataset.displayMode!=='light'||doc.querySelector('[data-toggle-mode]').getAttribute('aria-checked')!=='false')failures.push('light mode not restored after reload');
-  doc.querySelector('[data-summary-color="teal"]').click();await wait(()=>saved().preferences.summaryColor==='teal');if(saved().preferences.displayMode!=='light')failures.push('accent selection reset display mode');
-  doc.querySelector('[data-toggle-mode]').click();await wait(()=>saved().preferences.displayMode==='dark');if(saved().preferences.summaryColor!=='teal'||doc.documentElement.dataset.displayMode!=='dark')failures.push('dark mode toggle lost selected color');
+  if(doc.documentElement.dataset.displayMode!=='dark'||doc.querySelector('[data-toggle-mode]'))failures.push('legacy light preference did not stay in dark mode');
+  doc.querySelector('[data-summary-color="teal"]').click();await wait(()=>saved().preferences.summaryColor==='teal');
+  if(doc.documentElement.dataset.displayMode!=='dark')failures.push('accent selection changed dark mode');
+  if(JSON.stringify(saved().wallets)!==beforeColor||JSON.stringify(saved().transactions)!==beforeColorTransactions)failures.push('dark mode change altered financial data');
  }catch(error){failures.push(error.stack||error.message);}finally{frame.remove();localStorage.setItem('folio-data',JSON.stringify(seed));}
  return {width:'Functional',height:'flows',failures};
 }

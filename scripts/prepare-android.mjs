@@ -17,7 +17,9 @@ const signing=`    signingConfigs {
 `;
 export function androidAppGradle(source){
  source=source.replace(/compileSdk = \d+/,'compileSdk = 36').replace(/targetSdk = \d+/,'targetSdk = 36')
-  .replace(/optimization\s*\{\s*enable = true\s*\}/,'isMinifyEnabled = true');
+  // Preserve enum methods and classes accessed through reflection during startup.
+  .replace(/optimization\s*\{\s*enable = true\s*\}/,'isMinifyEnabled = false')
+  .replace(/isMinifyEnabled\s*=\s*true/g,'isMinifyEnabled = false');
  if(source.includes('POCKETPLAN_ANDROID_KEYSTORE'))return source;
  if(!source.includes('    buildTypes {')||!source.includes('getByName("release") {'))throw new Error('Unsupported Android template; signing was not configured.');
  return source

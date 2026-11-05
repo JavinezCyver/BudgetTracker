@@ -10,7 +10,6 @@ import {mobileNavigation,bindMobileNavigation} from './mobile-navigation.js';
 import './form-placeholders.css';
 import './mobile-buttons.css';
 import './amount-typography.css';
-import './display-mode.css';
 import './dashboard.css';
 import './appearance.css';
 import {applyAppearance,bindAppearance} from './appearance.js';

@@ -1,5 +1,5 @@
 /* Final device adaptations preserve the selected compact card size. */
-html{scrollbar-gutter:stable;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html{scrollbar-gutter:stable;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:none}
 button,a,input,select,summary{touch-action:manipulation}
 .sidebar{touch-action:pan-y}.full-wallets .bank-card{touch-action:pan-y pinch-zoom}
 .main-shell,main,dialog,.bank-card{min-width:0}
@@ -96,6 +96,9 @@ dialog input,dialog .select-trigger{scroll-margin:16px}
 body main>.page-heading,body main>.date-line,body main>.dashboard-heading,body main>.wallet-page-header,body .settings-heading{display:none}
 /* Enlarge every mobile page while keeping the navigation at its own size. */
 @media(max-width:760px){
- .main-shell{zoom:1.15}
+ .main-shell{--page-scale:1.15;zoom:var(--page-scale);min-height:calc(100dvh / var(--page-scale))}
+ main.wallets-page{min-height:calc(100dvh / var(--page-scale))}
+ /* Popover positions use viewport pixels supplied by the select component. */
+ .main-shell .select-menu{zoom:calc(1 / var(--page-scale))}
  dialog::backdrop{backdrop-filter:none}
 }

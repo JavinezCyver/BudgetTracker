@@ -76,8 +76,8 @@ After committing the release changes, push a tag matching the app version, or ru
 
 ```sh
 git push origin main
-git tag -a v0.1.2 -m "PocketPlan v0.1.2 for Android"
-git push origin v0.1.2
+git tag -a v0.1.3 -m "PocketPlan v0.1.3 for Android"
+git push origin v0.1.3
 ```
 
 For a local signed APK, set `ANDROID_HOME`, `NDK_HOME`, and `JAVA_HOME` for the installed SDK/NDK/JDK, then in PowerShell:
@@ -89,6 +89,6 @@ npm run tauri -- android build --ci --apk --target aarch64 -- --locked
 node scripts/package-android.mjs
 ```
 
-The output is `artifacts/PocketPlan-0.1.2-android-arm64.apk` with `SHA256SUMS-android.txt`. These files are created only after a successful build and signature verification. Release notes are in `.github/RELEASE_NOTES.md`. Automatic in-app updates and a Play Store listing are not configured.
+The output is `artifacts/PocketPlan-0.1.3-android-arm64.apk` with `SHA256SUMS-android.txt`. These files are created only after a successful build and signature verification. Release notes are in `.github/RELEASE_NOTES.md`. Automatic in-app updates and a Play Store listing are not configured.
 
 Windows builds remain available through `npm run tauri -- build --no-bundle --ci -- --locked` and `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-release.ps1`.
