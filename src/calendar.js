@@ -16,9 +16,14 @@ export function monthCells(month){
 const chevron=direction=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="${direction==='left'?'m14 6-6 6 6 6':'m10 6 6 6-6 6'}"/></svg>`;
 const calendarIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4m8-4v4M4 11h16m-9 4h2"/></svg>';
 const dayLabel=new Intl.DateTimeFormat('en-PH',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+const transactionDates=new WeakMap();
 export function calendarView({month,selectedDate,today,transactions,wallets,money,escape}){
  const todayISO=localDate(today),selected=new Date(`${selectedDate}T12:00:00`);
- const byDate=new Map();for(const transaction of transactions){if(!byDate.has(transaction.date))byDate.set(transaction.date,[]);byDate.get(transaction.date).push(transaction);}
+ let byDate=transactionDates.get(transactions);
+ if(!byDate){
+  byDate=new Map();for(const transaction of transactions){if(!byDate.has(transaction.date))byDate.set(transaction.date,[]);byDate.get(transaction.date).push(transaction);}
+  transactionDates.set(transactions,byDate);
+ }
  const dayTransactions=byDate.get(selectedDate)||[];
  const selectedIsToday=selectedDate===todayISO;
  return `<section class="folio-calendar"><article class="calendar-board"><header class="calendar-board-header"><div><p class="calendar-overline">YOUR FINANCIAL CALENDAR</p><h2>${month.toLocaleDateString('en-PH',{month:'long',year:'numeric'})}</h2></div><div class="calendar-navigation"><button id="today" class="calendar-today-button">Today</button><div><button id="prev-month" aria-label="Previous month">${chevron('left')}</button><button id="next-month" aria-label="Next month">${chevron('right')}</button></div></div></header><div class="calendar-weekdays" aria-hidden="true">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(day=>`<span>${day}</span>`).join('')}</div><div class="calendar-days" role="group" aria-label="${month.toLocaleDateString('en-PH',{month:'long',year:'numeric'})} dates">${monthCells(month).map(date=>{

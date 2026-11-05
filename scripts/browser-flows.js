@@ -110,6 +110,16 @@ async function checkFlows(seed){
   if(doc.querySelectorAll('.history-row').length!==1)failures.push('Income search failed');doc.querySelector('[data-history-reset]').click();
   if(doc.querySelectorAll('.history-row').length!==2)failures.push('Income reset included expenses');
   doc.querySelector('[data-page="Transactions"]').click();if(doc.querySelectorAll('.history-row').length!==6)failures.push('Income page changed Transactions filters');
+  const historyRoot=doc.querySelector('#transaction-history');doc.querySelector('[data-page="Transactions"]').click();
+  if(doc.querySelector('#transaction-history')!==historyRoot)failures.push('active page navigation rebuilt content');
+  const paginated=saved();paginated.transactions.push(...Array.from({length:40},(_,id)=>({id:`pagination-${id}`,name:`Pagination record ${id}`,category:'Other',wallet:maya.id,date:seed.transactions[0].date,amount:1})));
+  localStorage.setItem('folio-data',JSON.stringify(paginated));const paginationLoaded=new Promise(resolve=>frame.onload=resolve);frame.contentWindow.location.reload();await paginationLoaded;await ready();doc.querySelector('[data-page="Transactions"]').click();
+  doc.querySelector('[data-history-page="2"]').click();const summary=doc.querySelector('#history-totals').firstElementChild;
+  if(doc.querySelectorAll('.history-row').length!==20||!doc.querySelector('.history-pagination').textContent.includes('Page 2 of 3'))failures.push('second transaction page incorrect');
+  doc.querySelector('[data-history-page="3"]').click();
+  if(doc.querySelectorAll('.history-row').length!==6||doc.querySelector('#history-totals').firstElementChild!==summary)failures.push('pagination rebuilt totals or showed incorrect records');
+  const pageSearch=doc.querySelector('#history-search');pageSearch.value='Pagination record';pageSearch.dispatchEvent(new frame.contentWindow.Event('input',{bubbles:true}));
+  if(!doc.querySelector('.history-pagination').textContent.includes('Page 1 of 2'))failures.push('search did not reset pagination');
   localStorage.setItem('folio-data','{broken');const corrupted=new Promise(resolve=>frame.onload=resolve);frame.contentWindow.location.reload();await corrupted;await ready();
   if(!doc.querySelector('.storage-error'))failures.push('corrupt storage silently ignored');
   doc.querySelector('[data-page="Wallets"]').click();doc.querySelector('#add,#summary-add-wallet').click();set('name','Do not overwrite');set('purpose','Test');set('provider','folio');doc.querySelector('#entry-form').requestSubmit();await wait(()=>doc.querySelector('#form-error')?.textContent);

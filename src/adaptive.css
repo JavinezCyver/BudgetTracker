@@ -94,3 +94,8 @@ dialog input,dialog .select-trigger{scroll-margin:16px}
 }
 /* Navigation identifies the page without a second title/date header. */
 body main>.page-heading,body main>.date-line,body main>.dashboard-heading,body main>.wallet-page-header,body .settings-heading{display:none}
+/* Enlarge every mobile page while keeping the navigation at its own size. */
+@media(max-width:760px){
+ .main-shell{zoom:1.15}
+ dialog::backdrop{backdrop-filter:none}
+}

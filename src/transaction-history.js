@@ -11,19 +11,29 @@ const searchIcon=svg('<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/
 const walletIcon=svg('<path d="M20 8V5H5a3 3 0 0 0 0 6h15v10H5a3 3 0 0 1-3-3V8M20 13h-5v4h5"/>');
 const historyIcon=svg('<path d="M4 9a9 9 0 1 0 3-5M3 3v6h6M12 7v5l3 2"/>');
 const normalize=value=>String(value||'').normalize('NFKC').toLowerCase();
+// Data updates replace the snapshot; old indexes can be garbage-collected.
+const historyIndexes=new WeakMap();
 
 export function filterTransactions(data,filters,today=manilaNow()){
- const wallets=new Map(data.wallets.map(wallet=>[wallet.id,walletLabel(wallet)]));
+ let index=historyIndexes.get(data);
+ if(!index){
+  index={orders:new Map(),search:new Map(),wallets:new Map(data.wallets.map(wallet=>[wallet.id,walletLabel(wallet)]))};
+  historyIndexes.set(data,index);
+ }
+ const order=['oldest','amount'].includes(filters.sort)?filters.sort:'newest';
+ if(!index.orders.has(order))index.orders.set(order,[...data.transactions].sort((a,b)=>order==='oldest'?-compareTransactions(a,b):order==='amount'?Math.abs(b.amount)-Math.abs(a.amount)||compareTransactions(a,b):compareTransactions(a,b)));
  const query=normalize(filters.query).trim(),now=localDate(today),start=localDate(new Date(today.getFullYear(),today.getMonth(),today.getDate()-29));
- return data.transactions.filter(transaction=>{
+ return index.orders.get(order).filter(transaction=>{
   if(filters.type==='income'&&(transaction.amount<=0||isBalanceTransfer(transaction)))return false;
   if(filters.type==='expense'&&(transaction.amount>=0||isBalanceTransfer(transaction)))return false;
   if(filters.wallet&&filters.wallet!=='all'&&transaction.wallet!==filters.wallet)return false;
   if(filters.category&&filters.category!=='all'&&transaction.category!==filters.category)return false;
   if(filters.range==='month'&&!transaction.date.startsWith(now.slice(0,7)))return false;
   if(filters.range==='30days'&&(transaction.date<start||transaction.date>now))return false;
-  return !query||normalize(`${transaction.name} ${transaction.category} ${wallets.get(transaction.wallet)||''}`).includes(query);
- }).sort((a,b)=>filters.sort==='oldest'?-compareTransactions(a,b):filters.sort==='amount'?Math.abs(b.amount)-Math.abs(a.amount)||compareTransactions(a,b):compareTransactions(a,b));
+  if(!query)return true;
+  if(!index.search.has(transaction))index.search.set(transaction,normalize(`${transaction.name} ${transaction.category} ${index.wallets.get(transaction.wallet)||''}`));
+  return index.search.get(transaction).includes(query);
+ });
 }
 export function historyTotals(transactions){
  let income=0,expenses=0;for(const transaction of transactions){if(isBalanceTransfer(transaction))continue;if(transaction.amount>0)income+=cents(transaction.amount);else expenses-=cents(transaction.amount);}
@@ -68,11 +78,13 @@ export function transactionHistory({data,money,escape,today,mode='all'}){
 export function bindTransactionHistory({data,today,money,escape,openTransaction,mode='all'}){
  const root=document.querySelector('#transaction-history');if(!root)return;
  const state=states[mode];
- let resetting=false;
- function refresh(){
-  const filtered=filterTransactions(data,state,today);
-  document.querySelector('#history-totals').innerHTML=summaries(filtered,money,mode,today);
-  document.querySelector('#history-count').textContent=`${filtered.length} ${mode==='income'?'income record':'transaction'}${filtered.length===1?'':'s'}`;
+ let resetting=false,filtered=null;
+ function refresh(pageOnly=false){
+  if(!pageOnly||!filtered){
+   filtered=filterTransactions(data,state,today);
+   root.querySelector('#history-totals').innerHTML=summaries(filtered,money,mode,today);
+   root.querySelector('#history-count').textContent=`${filtered.length} ${mode==='income'?'income record':'transaction'}${filtered.length===1?'':'s'}`;
+  }
   document.querySelector('#history-results').innerHTML=records(data,filtered,{money,escape,state,mode});
   root.querySelectorAll('[data-history-type]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.historyType===state.type)));
  }
@@ -80,7 +92,7 @@ export function bindTransactionHistory({data,today,money,escape,openTransaction,
  for(const field of ['wallet','range','category','sort'])root.querySelector(`#history-${field}`)?.addEventListener('change',event=>{if(resetting)return;state[field]=event.target.value;state.page=1;refresh();});
  root.onclick=event=>{
   const type=event.target.closest('[data-history-type]');if(type){if(mode==='income')return;state.type=type.dataset.historyType;state.page=1;refresh();return;}
-  const page=event.target.closest('[data-history-page]');if(page&&!page.disabled){state.page=Number(page.dataset.historyPage);refresh();root.querySelector('.history-column-head')?.scrollIntoView({block:'nearest'});root.querySelector(`[data-history-page="${state.page+1}"]`)?.focus({preventScroll:true});return;}
+  const page=event.target.closest('[data-history-page]');if(page&&!page.disabled){state.page=Number(page.dataset.historyPage);refresh(true);root.querySelector('.history-column-head')?.scrollIntoView({block:'nearest'});root.querySelector(`[data-history-page="${state.page+1}"]`)?.focus({preventScroll:true});return;}
   if(event.target.closest('[data-history-add]')){openTransaction();return;}
   if(event.target.closest('[data-history-reset]')){
    Object.assign(state,defaultHistoryFilters(),mode==='income'?{type:'income'}:{});root.querySelector('#history-search').value='';resetting=true;

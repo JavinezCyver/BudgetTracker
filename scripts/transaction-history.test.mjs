@@ -33,3 +33,28 @@ test('pagination clamps stale page numbers and handles empty lists',()=>{
  const transactions=Array.from({length:45},(_,id)=>({id}));assert.equal(historyPage(transactions,2).items.length,20);assert.equal(historyPage(transactions,100).page,3);assert.equal(historyPage(transactions,100).items.length,5);assert.equal(historyPage([],3).start,0);
 });
 test('search text is literal, so punctuation does not cause errors',()=>assert.equal(filter({query:'<script>['}).length,0));
+
+test('search and ordering stay current after saving, renaming a wallet, and deleting records',()=>{
+ const filters={...defaultHistoryFilters(),query:'MariBank'};
+ const original=structuredClone(data);
+ assert.equal(filterTransactions(data,filters,today).length,3);
+ const renamed={...data,wallets:data.wallets.map(wallet=>({...wallet,name:'Renamed account'}))};
+ assert.equal(filterTransactions(renamed,filters,today).length,0);
+ const saved={...renamed,transactions:[...data.transactions,{id:'new',name:'MariBank bonus',category:'Income',wallet:'mari',date:'2026-11-06',amount:100}]};
+ assert.deepEqual(filterTransactions(saved,filters,today).map(item=>item.id),['new']);
+ const deleted={...saved,transactions:saved.transactions.filter(item=>item.id!=='new')};
+ assert.equal(filterTransactions(deleted,filters,today).length,0);
+ assert.deepEqual(data,original);
+});
+
+test('repeated searches and sort changes preserve tied record order and leave results independent',()=>{
+ const records={wallets:[],transactions:Array.from({length:100},(_,id)=>({id:String(id),name:`Item ${id}`,category:'Other',wallet:'none',date:'2026-11-03',createdAt:1,amount:10}))};
+ for(const sort of ['newest','oldest','amount']){
+  const filters={...defaultHistoryFilters(),sort,query:'Item'};
+  const first=filterTransactions(records,filters,today);
+  assert.deepEqual(first,records.transactions);
+  first.pop();
+  assert.equal(filterTransactions(records,filters,today).length,100);
+  assert.deepEqual(filterTransactions(records,{...filters,query:'Item 99'},today),[records.transactions[99]]);
+ }
+});

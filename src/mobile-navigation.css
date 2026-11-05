@@ -31,11 +31,11 @@ html[data-display-mode=light] #mobile-more .more-menu-settings{border-color:#e5e
 }
 @media(min-width:761px){#mobile-more{display:none}}
 @media(max-width:760px){
- .mobile-bottom-nav{min-height:56px;padding-top:4px;padding-bottom:calc(4px + env(safe-area-inset-bottom,0px))}
- .mobile-bottom-nav button{min-height:46px;padding:4px 2px;gap:4px;border-radius:9px;font-size:10px}
- .mobile-bottom-nav svg{width:18px;height:18px}
- body main{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
- html{scroll-padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
- #mobile-more{bottom:calc(66px + env(safe-area-inset-bottom,0px))}
- #toast{bottom:calc(62px + env(safe-area-inset-bottom,0px))}
+ .mobile-bottom-nav{min-height:64px;padding-top:4px;padding-bottom:calc(4px + env(safe-area-inset-bottom,0px))}
+ .mobile-bottom-nav button{min-height:54px;padding:4px 2px;gap:4px;border-radius:9px;font-size:12px}
+ .mobile-bottom-nav svg{width:22px;height:22px}
+ body main{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+ html{scroll-padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+ #mobile-more{bottom:calc(74px + env(safe-area-inset-bottom,0px))}
+ #toast{bottom:calc(70px + env(safe-area-inset-bottom,0px))}
 }
