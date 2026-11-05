@@ -48,6 +48,8 @@ jobs:
           fs.writeFileSync(process.env.POCKETPLAN_ANDROID_KEYSTORE, Buffer.from(process.env.ANDROID_KEYSTORE_BASE64, 'base64'), {mode: 0o600});
           fs.appendFileSync(process.env.GITHUB_ENV, `RELEASE_TAG=${tag}\n`);
           NODE
+      - name: Verify signing key access
+        run: keytool -certreq -alias pocketplan -storetype PKCS12 -keystore "$POCKETPLAN_ANDROID_KEYSTORE" -storepass:env POCKETPLAN_ANDROID_PASSWORD -keypass:env POCKETPLAN_ANDROID_PASSWORD -file "$RUNNER_TEMP/pocketplan-key-check.csr"
       - name: Set up Android SDK command-line tools
         uses: android-actions/setup-android@v4
         with:
